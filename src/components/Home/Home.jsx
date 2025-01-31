@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 
 export default function Home() {
   const { data, loading, error } = useFetch("/products");
-  console.log(data);
+  console.log(data, loading, error);
   return (
     <>
       {/* <Hero /> */}
