@@ -1,5 +1,16 @@
-import { AuthComponent, ErrorPage, Home, RootLayout } from "@components";
+import {
+  AuthComponent,
+  DashboardLayout,
+  ErrorPage,
+  Home,
+  Private,
+  ProductDetails,
+  Profile,
+  RootLayout,
+} from "@components";
 import { createBrowserRouter } from "react-router-dom";
+import Test from "../layouts/Test";
+import TestDash from "../layouts/TestDash";
 
 const Router = createBrowserRouter([
   {
@@ -10,37 +21,51 @@ const Router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "login", element: <AuthComponent /> },
       { path: "signup", element: <AuthComponent /> },
+      { path: "product/:id", element: <ProductDetails /> },
     ],
   },
-  // {
-  //   path: "/dashboard",
-  //   element: (
-  //     <Private>
-  //       <DashboardLayout />
-  //     </Private>
-  //   ),
+  {
+    path: "/dashboard",
+    element: (
+      <Private>
+        <DashboardLayout />
+      </Private>
+    ),
 
-  //   errorElement: <ErrorPage message={"404 Not Found"} />,
-  //   children: [
-  //     {
-  //       path: "",
-  //       element: <Dashboard />,
-  //     },
+    errorElement: <ErrorPage message={"404 Not Found"} />,
+    children: [
+      {
+        path: "",
+        element: <DashboardLayout />,
+      },
 
-  //     {
-  //       path: "profile",
-  //       element: <Profile />,
-  //     },
-  //     {
-  //       path: "favorites",
-  //       element: <Favorites />,
-  //     },
-  //     {
-  //       path: "rent_request_list",
-  //       element: <RentRequest />,
-  //     },
-  //   ],
-  // },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "test",
+        element: <Test />,
+      },
+
+      // {
+      //   path: "rent_request_list",
+      //   element: <RentRequest />,
+      // },
+    ],
+  },
+  {
+    path: "/test",
+    element: <TestDash />,
+
+    errorElement: <ErrorPage message={"404 Not Found"} />,
+    children: [
+      {
+        path: "",
+        element: <Test />,
+      },
+    ],
+  },
 ]);
 
 export { Router };

@@ -8,6 +8,7 @@ const useFetch = (endpoint, method = "GET", body = null) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Define the async function inside the useEffect hook
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -20,20 +21,17 @@ const useFetch = (endpoint, method = "GET", body = null) => {
             "Content-Type": "application/json",
             ...(token && { Authorization: `Bearer ${token}` }),
           },
-          data: body, // Always include body if provided
+          data: body,
         };
 
         const response = await axios(config);
         setData(response.data);
       } catch (err) {
         if (err.response) {
-          // Server responded with error status
           setError(err.response.data.message || err.response.statusText);
         } else if (err.request) {
-          // Request was made but no response
           setError("No response from server");
         } else {
-          // Other errors
           setError(err.message || "An error occurred while fetching data");
         }
       } finally {
@@ -41,10 +39,9 @@ const useFetch = (endpoint, method = "GET", body = null) => {
       }
     };
 
-    if (endpoint) {
-      fetchData();
-    }
-  }, [endpoint, method, body]);
+    // Call the async function
+    fetchData();
+  }, [endpoint, method, body]); // Only re-run the effect if these dependencies change
 
   return { data, loading, error };
 };

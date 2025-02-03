@@ -8,29 +8,15 @@ import {
   Sun,
   UserRoundPlus,
 } from "lucide-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
+import { useTheme } from "../../../theme/useTheme";
 
 const Navbar = () => {
+  const { currentTheme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
-  const [currentTheme, setCurrentTheme] = useState("light");
-
-  // Check localStorage or system preference on load
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setCurrentTheme(savedTheme);
-    document.documentElement.classList.toggle("dark", savedTheme === "dark");
-  }, []);
-
-  // Toggle the theme and save it in localStorage
-  const toggleTheme = () => {
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-    setCurrentTheme(newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-    localStorage.setItem("theme", newTheme); // Save the selected theme
-  };
 
   const navLinks = user
     ? [
@@ -92,7 +78,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="relative mx-auto mt-4 w-[90vw] rounded-3xl bg-white/5 shadow-lg backdrop-blur-3xl">
+    <nav className="relative mx-auto mt-4 w-[90vw] rounded-3xl bg-white/5 shadow-sm backdrop-blur-2xl">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-4">
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-3">

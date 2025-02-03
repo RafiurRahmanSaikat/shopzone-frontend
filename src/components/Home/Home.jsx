@@ -1,19 +1,23 @@
-import useFetch from "../../hooks/UseFetch";
+import {
+  FAQ,
+  Hero,
+  Invoice,
+  Profile,
+  SearchBar,
+  Stats,
+} from "../../components";
 import ProductList from "./ProductList";
-import SearchBar from "./SearchBar";
 
 export default function Home() {
-  const { data, loading, error } = useFetch("/products");
-  console.log(data, loading, error);
   return (
     <>
-      {/* <Hero /> */}
-      {/* <Profile /> */}
-      {/* <FAQ /> */}
+      <Hero />
       <SearchBar />
       <ProductList />
-      {/* <DynamicCards /> */}
-      {/* <BentoCard /> */}
+      <Stats />
+      <FAQ />
+      {/* <Profile />
+      <Invoice /> */}
     </>
   );
 }

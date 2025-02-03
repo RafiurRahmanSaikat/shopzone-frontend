@@ -1,13 +1,16 @@
+import { ProductCard } from "@components";
 import React from "react";
 import useFetch from "../../hooks/UseFetch";
-import ProductCard from "./ProductCard";
-
 const ProductList = () => {
   const { data: products, loading, error } = useFetch("/products");
+  const handleAddToCart = (id) => {
+    console.log(id);
+  };
+  console.log(products);
   if (loading) {
     return <p>Loading products...</p>;
   }
-
+  if (error) return <p>{error}</p>;
   return (
     <section className="py-8">
       <h2 className="mb-8 text-center text-3xl font-semibold text-gray-500 dark:text-white">
@@ -17,10 +20,16 @@ const ProductList = () => {
         {products?.results?.map((product) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             title={product.name}
             description={product.description}
             price={product.price}
             image={product.image}
+            rating={product.rating}
+            name={product.name}
+            onAddToCart={handleAddToCart}
+            categories={product.categories}
+            className=""
           />
         ))}
       </div>
