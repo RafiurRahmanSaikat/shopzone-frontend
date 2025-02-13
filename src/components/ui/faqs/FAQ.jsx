@@ -53,7 +53,7 @@ const FAQ = () => {
           <div className="divide-y divide-gray-200 dark:divide-neutral-700">
             {faqs.map((faq, index) => (
               <details key={index} className="py-4">
-                <summary className="cursor-pointer text-lg font-semibold text-gray-800 dark:text-neutral-200">
+                <summary className="cursor-pointer text-lg font-semibold text-gray-600 dark:text-neutral-200">
                   {faq.question}
                 </summary>
                 <p className="mt-2 text-gray-600 dark:text-neutral-400">

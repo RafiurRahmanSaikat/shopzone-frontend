@@ -4,7 +4,7 @@ export default function name() {
       <div className="container mx-auto px-6 py-10">
         <div className="lg:-mx-10 lg:flex lg:items-center">
           <div className="lg:mx-10 lg:w-1/2">
-            <h1 className="text-2xl font-semibold capitalize text-gray-800 dark:text-white lg:text-3xl">
+            <h1 className="text-2xl font-semibold text-gray-600 capitalize lg:text-3xl dark:text-white">
               Let’s talk
             </h1>
             <p className="mt-4 text-gray-500 dark:text-gray-400">
@@ -19,7 +19,7 @@ export default function name() {
                   <input
                     type="text"
                     placeholder="John Doe"
-                    className="mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
+                    className="focus:ring-opacity-40 mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   />
                 </div>
                 <div className="mt-4 flex-1 px-2 md:mt-0">
@@ -29,7 +29,7 @@ export default function name() {
                   <input
                     type="email"
                     placeholder="johndoe@example.com"
-                    className="mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
+                    className="focus:ring-opacity-40 mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   />
                 </div>
               </div>
@@ -38,12 +38,12 @@ export default function name() {
                   Message
                 </label>
                 <textarea
-                  className="mt-2 block h-32 w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400 md:h-56"
+                  className="focus:ring-opacity-40 mt-2 block h-32 w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:outline-none md:h-56 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   placeholder="Message"
                   defaultValue={""}
                 />
               </div>
-              <button className="mt-4 w-full transform rounded-md bg-blue-500 px-6 py-3 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+              <button className="focus:ring-opacity-50 mt-4 w-full transform rounded-md bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 hover:bg-blue-400 focus:ring focus:ring-blue-300 focus:outline-none">
                 get in touch
               </button>
             </form>

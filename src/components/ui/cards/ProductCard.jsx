@@ -25,6 +25,7 @@ const ProductCard = ({
       className={`group relative overflow-hidden rounded-2xl bg-white/10 p-4 shadow-lg transition-transform hover:scale-[1.01] active:scale-95 ${className}`}
     >
       {/* Gradient Effect */}
+
       <div
         className="absolute -translate-x-1/2 -translate-y-1/2 transform-gpu rounded-full transition-opacity duration-500 group-hover:opacity-100"
         style={{
@@ -45,11 +46,13 @@ const ProductCard = ({
 
       {/* Product Image */}
       <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-lg bg-white/70 dark:bg-black/50">
-        <img
-          src={image || "/placeholder.jpg"}
-          alt={name}
-          className="h-full w-full object-cover"
-        />
+        <Link to={`/product/${id}`}>
+          <img
+            src={image || "/placeholder.jpg"}
+            alt={name}
+            className="h-fit w-fit object-cover"
+          />
+        </Link>
       </div>
 
       {/* Product Details */}

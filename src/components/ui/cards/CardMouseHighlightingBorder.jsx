@@ -16,10 +16,10 @@ export const CardMouseHighlightingBorder = ({ title, content }) => {
         "--radius": "1rem",
       }}
     >
-      <div className="absolute inset-px transform-gpu rounded-[calc(var(--radius)-1px)] bg-neutral-100 dark:bg-neutral-800" />
+      <div className="absolute inset-px transform-gpu rounded-[calc(var(--radius)-1px)] bg-neutral-100" />
 
       <div className="relative h-40 rounded-[calc(var(--radius)-4px)] bg-neutral-200 dark:bg-neutral-900" />
-      <div className="relative px-4 pb-2 pt-4">
+      <div className="relative px-4 pt-4 pb-2">
         <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-300">
           {title}
         </h3>

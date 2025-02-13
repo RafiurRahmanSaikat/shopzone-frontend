@@ -1,11 +1,10 @@
-import { Facebook01Icon, Github01Icon, TwitterIcon } from "hugeicons-react";
 import { Eye, EyeOff, User } from "lucide-react";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
 
 const SignUpForm = () => {
-  const { SignUp, loading } = useContext(AuthContext);
+  const { signup, loading } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [imageData, setImageData] = useState({ file: null, preview: null });
   const initialFromData = {
@@ -15,10 +14,10 @@ const SignUpForm = () => {
     lastName: "",
     password: "",
     confirmPassword: "",
-    accountType: "",
+    role: "",
     address: "",
     image: null,
-    mobileNumber: "",
+    phone_number: "",
   };
   const [formData, setFormData] = useState(initialFromData);
 
@@ -32,17 +31,16 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await SignUp(formData);
-    // console.log(response);
+    const response = await signup(formData);
+    console.log(response);
     if (response.status === 201) setFormData(initialFromData);
-    // console.log(response.status);
+    console.log(response.status);
   };
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       if (selectedFile.size > 5 * 1024 * 1024) {
-        // 5MB limit
         toast.error("Image size should be less than 5MB");
         return;
       }
@@ -103,7 +101,7 @@ const SignUpForm = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="First Name"
           />
         </div>
@@ -118,7 +116,7 @@ const SignUpForm = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="Last Name"
           />
         </div>
@@ -136,7 +134,7 @@ const SignUpForm = () => {
             autoComplete="username"
             value={formData.username}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="Enter your username"
           />
         </div>
@@ -145,14 +143,15 @@ const SignUpForm = () => {
             Account Type
           </label>
           <select
-            name="accountType"
-            value={formData.accountType}
+            name="role"
+            value={formData.role}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
           >
             <option value="">Select</option>
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
+            <option value="customer">Customer</option>
+            <option value="store_owner">Store Owner</option>
+            <option value="admin">Admin</option>
           </select>
         </div>
       </div>
@@ -168,7 +167,7 @@ const SignUpForm = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="you@example.com"
           />
         </div>
@@ -180,11 +179,11 @@ const SignUpForm = () => {
           <input
             required={true}
             type="text"
-            name="mobileNumber"
-            autoComplete="mobileNumber"
-            value={formData.mobileNumber}
+            name="phone_number"
+            autoComplete="phone_number"
+            value={formData.phone_number}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="Mobile number"
           />
         </div>
@@ -202,13 +201,13 @@ const SignUpForm = () => {
             value={formData.password}
             autoComplete="new-password"
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="••••••••"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-[60%] -translate-y-1/2 text-gray-600"
+            className="absolute top-[60%] right-3 -translate-y-1/2 text-gray-600"
           >
             {showPassword ? (
               <EyeOff className="h-5 w-5" />
@@ -229,13 +228,13 @@ const SignUpForm = () => {
             autoComplete="confirm-password"
             value={formData.confirmPassword}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+            className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="••••••••"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-[60%] -translate-y-1/2 text-gray-600"
+            className="absolute top-[60%] right-3 -translate-y-1/2 text-gray-600"
           >
             {showPassword ? (
               <EyeOff className="h-5 w-5" />
@@ -254,7 +253,7 @@ const SignUpForm = () => {
           name="address"
           value={formData.address}
           onChange={handleInputChange}
-          className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+          className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
           placeholder="Your address"
         ></textarea>
       </div>
@@ -267,7 +266,7 @@ const SignUpForm = () => {
       >
         {loading ? "Creating Account..." : "Create Account"}
       </button>
-      <div className="mt-6">
+      {/* <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300" />
@@ -293,7 +292,7 @@ const SignUpForm = () => {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
     </form>
   );
 };

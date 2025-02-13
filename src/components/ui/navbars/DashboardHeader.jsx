@@ -1,48 +1,67 @@
-import { Activity, Bell, Moon, Search, Sun } from "lucide-react";
+import { LogOut, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../../theme/useTheme";
 
-const SearchBar = () => (
-  <div className="relative hidden md:block">
-    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-      <Search className="size-4 text-gray-400 dark:text-white/60" />
-    </div>
-    <input
-      type="text"
-      className="block w-full rounded-lg border-gray-200 bg-white py-2 pr-16 pl-10 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400"
-      placeholder="Search"
-    />
-  </div>
-);
+const DashboardHeader = ({ user, logout }) => {
+  const { ThemeToggleButton } = useTheme();
 
-export default function DashboardHeader() {
-  const { toggleTheme, currentTheme } = useTheme();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
-    <header className="sticky top-0 z-50 flex w-full border-b bg-white py-2.5 lg:pl-64 dark:border-neutral-700 dark:bg-neutral-800">
-      <nav className="mx-auto flex w-full items-center px-4 sm:px-6">
-        <div className="flex w-full items-center justify-between">
-          <SearchBar />
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="rounded-lg p-2 transition-colors hover:bg-purple-400 dark:text-white"
-              aria-label={`Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
-            >
-              {currentTheme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </button>
-            <button className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-700">
-              <Bell className="h-5 w-5 text-gray-500 dark:text-white" />
-            </button>
-            <button className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-700">
-              <Activity className="h-5 w-5 text-gray-500 dark:text-white" />
-            </button>
+    <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b bg-white py-3 text-sm md:flex-nowrap md:justify-start lg:ps-[260px] dark:border-neutral-700 dark:bg-neutral-800">
+      <nav className="mx-auto flex w-full basis-full items-center px-4 sm:px-6">
+        <div className="me-5 lg:me-0 lg:hidden">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-xl font-bold text-transparent"
+          >
+            ShopZone
+          </Link>
+          {/* End Logo */}
+          <div className="ms-1 lg:hidden"></div>
+        </div>
+        <div className="ms-auto flex w-full items-center justify-end gap-x-3 md:gap-x-4">
+          <div className="flex flex-row items-center gap-3">
+            {/* Theme Toggle */}
+            <ThemeToggleButton />
+
+            {/* User Info */}
+            {user && (
+              <div className="flex items-center gap-3">
+                {/* Profile Picture */}
+                <div className="relative">
+                  {user.profile_picture ? (
+                    <img
+                      src={user.profile_picture}
+                      alt={user.username}
+                      className="h-10 w-10 rounded-full border-2 border-gray-300 shadow-lg"
+                    />
+                  ) : (
+                    <User className="h-10 w-10 text-gray-500" />
+                  )}
+                </div>
+                {/* User Info */}
+                <div className="hidden text-gray-700 sm:block dark:text-gray-300">
+                  <p className="text-sm font-semibold">{user.username}</p>
+                  <p className="text-xs">{user.email}</p>
+                </div>
+                {/* Logout Icon */}
+                <button onClick={handleLogout}>
+                  <LogOut className="h-5 w-5 rounded-full text-red-500" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </nav>
     </header>
   );
-}
+};
+
+export default DashboardHeader;

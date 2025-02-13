@@ -10,7 +10,7 @@ export default function Stats() {
             <div className="lg:pe-6 xl:pe-12">
               <p className="text-6xl leading-10 font-bold text-blue-600">
                 92%
-                <span className="ms-1 inline-flex items-center gap-x-1 rounded-full bg-gray-200 px-2 py-0.5 text-xs leading-4 font-medium text-gray-800 dark:bg-neutral-800 dark:text-neutral-300">
+                <span className="ms-1 inline-flex items-center gap-x-1 rounded-full bg-black px-2 py-0.5 text-xs leading-4 font-medium text-gray-600 dark:text-neutral-300">
                   <svg
                     className="size-4 shrink-0"
                     xmlns="http://www.w3.org/2000/svg"

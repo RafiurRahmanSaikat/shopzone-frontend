@@ -2,7 +2,7 @@ import { ShieldCheck, ShoppingBag, Truck } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 py-12 dark:bg-gray-900">
+    <footer className="bg-gray-100 py-12 dark:bg-zinc-900">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           <div>
@@ -56,7 +56,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full rounded-l-md px-4 py-2 text-gray-900 outline-none dark:text-gray-700"
+                className="mr-2 w-full rounded-md bg-white px-4 py-2 text-gray-900 outline-none dark:text-gray-700"
               />
               <button className="rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500">
                 Subscribe

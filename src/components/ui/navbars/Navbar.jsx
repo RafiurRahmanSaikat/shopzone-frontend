@@ -1,15 +1,22 @@
 import {
   Home,
+  LayoutDashboard,
+  ListChecks,
   LogOut,
   Menu,
   Moon,
+  Package,
   ScanFace,
   Settings,
+  ShoppingCart,
+  Store,
   Sun,
   UserRoundPlus,
+  Users,
 } from "lucide-react";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { sidebarLinks } from "../../../constants";
 import AuthContext from "../../../context/AuthContext";
 import { useTheme } from "../../../theme/useTheme";
 
@@ -18,34 +25,57 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
-  const navLinks = user
-    ? [
-        { href: "/", icon: <Home className="h-4 w-4" />, label: "Home" },
-        {
-          href: "/dashboard",
-          icon: <Settings className="h-4 w-4" />,
-          label: "Dashboard",
-        },
-        {
-          href: "#",
-          icon: <LogOut className="h-4 w-4" />,
-          label: "Logout",
-          action: logout,
-        },
-      ]
-    : [
-        { href: "/", icon: <Home className="h-4 w-4" />, label: "Home" },
-        {
-          href: "/login",
-          icon: <ScanFace className="h-4 w-4" />,
-          label: "Login",
-        },
-        {
-          href: "/signup",
-          icon: <UserRoundPlus className="h-4 w-4" />,
-          label: "Register",
-        },
-      ];
+  let navLinks = [];
+
+  if (user) {
+    navLinks.push(
+      { href: "/", icon: <Home className="h-4 w-4" />, label: "Home" },
+      {
+        href: "/dashboard",
+        icon: <LayoutDashboard className="h-4 w-4" />,
+        label: "Dashboard",
+      },
+      {
+        href: "#",
+        icon: <LogOut className="h-4 w-4" />,
+        label: "Logout",
+        action: logout,
+      },
+    );
+
+    const roleIcons = {
+      Profile: <Settings className="h-4 w-4" />,
+      Users: <Users className="h-4 w-4" />,
+      Products: <Package className="h-4 w-4" />,
+      Stores: <Store className="h-4 w-4" />,
+      Orders: <ListChecks className="h-4 w-4" />,
+      "My Orders": <ListChecks className="h-4 w-4" />,
+      Cart: <ShoppingCart className="h-4 w-4" />,
+      Manage: <Store className="h-4 w-4" />,
+    };
+
+    const roleLinks = sidebarLinks[user.role] || [];
+    roleLinks.forEach((link) => {
+      navLinks.unshift({
+        href: link.path,
+        icon: roleIcons[link.name] || <Settings className="h-4 w-4" />, // Default to Settings if no match
+        label: link.name,
+      });
+    });
+  } else {
+    navLinks.push(
+      {
+        href: "/login",
+        icon: <ScanFace className="h-4 w-4" />,
+        label: "Login",
+      },
+      {
+        href: "/signup",
+        icon: <UserRoundPlus className="h-4 w-4" />,
+        label: "Register",
+      },
+    );
+  }
 
   const ThemeToggleButton = () => (
     <button
@@ -78,7 +108,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="relative mx-auto mt-4 w-[90vw] rounded-3xl bg-white/5 shadow-sm backdrop-blur-2xl">
+    <nav className="relative mx-auto mt-4 w-[90vw] rounded-3xl bg-gray-100 shadow-sm backdrop-blur-2xl dark:bg-white/5">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-4">
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-3">

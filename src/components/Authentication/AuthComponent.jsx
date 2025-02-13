@@ -38,7 +38,7 @@ export default function AuthComponent() {
           <div
             className={`relative w-full bg-white p-6 transition-all duration-500 ease-in-out md:w-1/2 md:p-12 ${isLogin ? "translate-y-0 md:translate-x-0" : "-translate-y-0 md:-translate-x-full md:translate-y-0"}`}
           >
-            <h2 className="mb-4 text-2xl font-bold text-gray-800 md:mb-6 md:text-3xl">
+            <h2 className="mb-4 text-2xl font-bold text-gray-600 md:mb-6 md:text-3xl">
               {isLogin ? "Sign In to Account" : null}
             </h2>
             {isLogin ? <SignInForm /> : <SignUpForm />}

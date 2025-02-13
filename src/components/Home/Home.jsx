@@ -1,11 +1,4 @@
-import {
-  FAQ,
-  Hero,
-  Invoice,
-  Profile,
-  SearchBar,
-  Stats,
-} from "../../components";
+import { FAQ, Hero, SearchBar, Stats } from "../../components";
 import ProductList from "./ProductList";
 
 export default function Home() {

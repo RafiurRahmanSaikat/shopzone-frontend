@@ -1,15 +1,16 @@
-export default function NoData() {
+import { Package } from "lucide-react";
+
+export default function NoData({
+  title = "No data found !!",
+  description = "Add some data to get started!",
+}) {
   return (
-    <div className="boxShadow flex flex-col items-center justify-center gap-[4px] rounded-xl p-2 sm:px-20 sm:py-14">
-      <img
-        src="https://i.ibb.co/cgfgxGH/Illustrations.png"
-        alt="empty/image"
-        className="h-52"
-      />
-      <h1 className="text-[1.4rem]">Result Not Found</h1>
-      <p className="text- text-gray-100">
-        Whoops ... this information is not available for a moment
-      </p>
+    <div className="rounded-xl bg-white p-8 text-center shadow-sm dark:bg-zinc-900">
+      <Package className="mx-auto mb-4 h-16 w-16 text-zinc-400" />
+      <h2 className="mb-2 text-xl font-semibold text-zinc-900 uppercase dark:text-white">
+        {title}
+      </h2>
+      <p className="text-zinc-600 dark:text-zinc-400">{description}</p>
     </div>
   );
 }

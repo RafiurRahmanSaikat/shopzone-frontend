@@ -159,10 +159,10 @@ const BarItem = ({ info }) => {
 
 const Review = () => {
   return (
-    <section className="relative z-10 overflow-hidden bg-white py-14 text-zinc-900 md:py-24 dark:bg-zinc-900 dark:text-white">
+    <section className="relative z-10 overflow-hidden bg-white py-14 text-zinc-900 md:py-24 dark:text-white">
       <div className="container mx-auto px-4">
         <div className="mx-auto flex max-w-4xl justify-center">
-          <div className="rounded bg-blue-50 p-4 lg:p-8 dark:bg-zinc-900">
+          <div className="rounded bg-blue-50 p-4 lg:p-8">
             <div>
               <div className="p-3 md:p-6">
                 <h4 className="mb-2 text-2xl font-medium">

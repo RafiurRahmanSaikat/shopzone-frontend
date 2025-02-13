@@ -38,7 +38,7 @@ export default function AnimatedGradientButton({
           }}
         />
       </motion.span>
-      <span className="relative z-10 block rounded-full bg-current px-3 py-1 dark:bg-neutral-800">
+      <span className="relative z-10 block rounded-full bg-current px-3 py-1">
         <motion.span
           animate={{
             backgroundImage: [

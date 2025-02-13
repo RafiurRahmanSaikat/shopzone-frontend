@@ -36,7 +36,7 @@ const Hero = () => {
 
         {/* Title */}
         <div className="mx-auto mt-5 max-w-xl text-center">
-          <h1 className="block text-4xl font-bold text-gray-800 md:text-5xl lg:text-6xl dark:text-neutral-200">
+          <h1 className="block text-4xl font-bold text-gray-600 md:text-5xl lg:text-6xl dark:text-neutral-200">
             Welcome to <span className="text-blue-600">ShopZone</span> - Your
             One-Stop Online Shop
           </h1>

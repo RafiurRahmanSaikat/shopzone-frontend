@@ -1,4 +1,3 @@
-import { Facebook01Icon, Github01Icon, TwitterIcon } from "hugeicons-react";
 import { Eye, EyeOff, User2Icon } from "lucide-react";
 import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
@@ -77,7 +76,7 @@ const LoginForm = () => {
         {loading ? "Signing In..." : "Sign In"}
       </button>
 
-      <div className="mt-6">
+      {/* <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300" />
@@ -103,7 +102,7 @@ const LoginForm = () => {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
     </form>
   );
 };

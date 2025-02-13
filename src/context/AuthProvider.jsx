@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { BASE_URL_BACKEND } from "../constants";
 import AuthContext from "./AuthContext";
@@ -9,18 +9,21 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [loading, setLoading] = useState(false);
 
-  const saveToken = useCallback((jwtToken) => {
+  const saveToken = (jwtToken, refreshToken) => {
     localStorage.setItem("token", jwtToken);
+    localStorage.setItem("refresh_token", refreshToken);
     setToken(jwtToken);
-  }, []);
+  };
 
-  const removeToken = useCallback(() => {
+  const removeToken = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user");
     setToken(null);
     setUser(null);
-  }, []);
+  };
 
-  const fetchProfile = useCallback(async () => {
+  const fetchProfile = async () => {
     if (!token) return;
     setLoading(true);
     try {
@@ -31,71 +34,83 @@ const AuthProvider = ({ children }) => {
         },
       );
       setUser(response.data);
+      // console.log(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
       console.error("Error fetching profile:", error);
       removeToken();
     } finally {
       setLoading(false);
     }
-  }, [token, removeToken]);
+  };
 
   useEffect(() => {
-    if (token) fetchProfile();
-  }, [token, fetchProfile]);
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchProfile();
+    }
+  }, [token]);
 
-  const login = useCallback(
-    async (credentials) => {
-      setLoading(true);
-      try {
-        const { data } = await axios.post(
-          `${BASE_URL_BACKEND}/token/`,
-          credentials,
-        );
-        saveToken(data.access);
-        toast.success("Login successful!");
-        await fetchProfile();
-        return { status: 200 }; // Ensure a response is returned
-      } catch (error) {
-        toast.error("Invalid credentials");
-        return { status: error.response?.status || 500 };
-      } finally {
-        setLoading(false);
-      }
-    },
-    [saveToken, fetchProfile],
-  );
-
-  const signup = useCallback(async (formData) => {
+  const login = async (credentials) => {
     setLoading(true);
     try {
-      await axios.post(`${BASE_URL_BACKEND}/accounts/users/`, formData);
-      toast.success("Signup successful! Please verify your email.");
+      const { data } = await axios.post(
+        `${BASE_URL_BACKEND}/token/`,
+        credentials,
+      );
+      saveToken(data.access, data.refresh);
+      toast.success("Login successful!");
+      await fetchProfile();
+      return { status: 200 };
     } catch (error) {
-      toast.error("Signup failed. Try again.");
+      toast.error("Invalid credentials");
+      return { status: error.response?.status || 500 };
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
-  const logout = useCallback(async () => {
+  const signup = async (formData) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${BASE_URL_BACKEND}/accounts/users/`,
+        formData,
+      );
+      toast.success("Signup successful! Please verify your email.");
+      return response;
+    } catch (error) {
+      toast.error("Signup failed. Try again.");
+      return error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logout = async () => {
     try {
       const refreshToken = localStorage.getItem("refresh_token");
       if (refreshToken) {
-        await axios.post(`${BASE_URL_BACKEND}/logout/`, {
-          refresh: refreshToken,
-        });
+        await axios.post(
+          `${BASE_URL_BACKEND}/logout/`,
+          { refresh: refreshToken },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
       }
     } catch (error) {
       console.error("Logout failed", error);
     } finally {
       removeToken();
-      localStorage.removeItem("refresh_token");
       toast.info("Logged out successfully!");
-      setTimeout(() => {
-        window.location.replace("/login");
-      }, 500);
+      window.location.replace("/login");
     }
-  }, [removeToken]);
+  };
+
   return (
     <AuthContext.Provider
       value={{ user, token, loading, login, signup, logout }}
@@ -104,4 +119,5 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 export default AuthProvider;
