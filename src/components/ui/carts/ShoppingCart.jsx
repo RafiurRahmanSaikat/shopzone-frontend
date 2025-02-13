@@ -43,8 +43,8 @@ const ShoppingCart = () => {
   }
 
   const shipping = 10.0;
-  const tax = cart.item_subtotal * 0.08;
-  const total = cart.item_subtotal + shipping + tax;
+  const tax = cart?.item_subtotal * 0.08;
+  const total = cart?.item_subtotal + shipping + tax;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -52,7 +52,7 @@ const ShoppingCart = () => {
         Shopping Cart
       </h1>
 
-      {!cart?.cart_items || cart.cart_items.length === 0 ? (
+      {!cart?.cart_items || cart?.cart_items?.length === 0 ? (
         <NoData
           title="Your cart is empty"
           description="Add some products to cart"
@@ -60,7 +60,7 @@ const ShoppingCart = () => {
       ) : (
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="space-y-4 rounded-lg border border-zinc-600 px-2 py-4 sm:px-6 lg:col-span-2 dark:border-zinc-500">
-            {cart.cart_items.map((item) => (
+            {cart?.cart_items?.map((item) => (
               <CartItem
                 key={item.id}
                 item={item}
@@ -72,7 +72,7 @@ const ShoppingCart = () => {
 
           <div className="space-y-4 lg:col-span-1">
             <PaymentForm totalAmount={total} onPaymentSuccess={createOrder} />
-            <OrderSummary subtotal={cart.item_subtotal} />
+            <OrderSummary subtotal={cart?.item_subtotal} />
           </div>
         </div>
       )}
