@@ -1,3 +1,4 @@
+import { Loading } from "@components";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -232,7 +233,7 @@ const ProductDetails = () => {
     refetch,
   } = UseFetch(`/products/${id}`);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
   if (!product) return <div>No product found</div>;
 

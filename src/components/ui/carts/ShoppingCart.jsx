@@ -10,7 +10,7 @@ import OrderSummary from "./OrderSummary";
 const ShoppingCart = () => {
   const { data: cart, loading, error, refetch } = UseFetch("/cart");
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-
+  console.log(cart);
   const createOrder = async () => {
     setIsCheckingOut(true);
     try {
