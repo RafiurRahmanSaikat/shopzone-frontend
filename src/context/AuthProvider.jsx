@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
         `${BASE_URL_BACKEND}/accounts/users/`,
         formData,
       );
-      toast.success("Signup successful! Please verify your email.");
+      toast.success("Signup successful!");
       return response;
     } catch (error) {
       toast.error("Signup failed. Try again.");

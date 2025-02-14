@@ -5,7 +5,7 @@ import { useMouse } from "../../../hooks/useMouse";
 
 const ProductCard = ({
   id,
-  name,
+  title,
   description,
   price,
   image,
@@ -49,7 +49,7 @@ const ProductCard = ({
         <Link to={`/product/${id}`}>
           <img
             src={image || "/placeholder.jpg"}
-            alt={name}
+            alt={title}
             className="h-fit w-fit object-cover"
           />
         </Link>
@@ -58,7 +58,7 @@ const ProductCard = ({
       {/* Product Details */}
       <div className="relative px-4 pt-4 pb-2">
         <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-300">
-          {name}
+          {title}
         </h3>
         <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
           {description?.length > 200

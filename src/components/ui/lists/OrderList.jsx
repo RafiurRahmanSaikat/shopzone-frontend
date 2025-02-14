@@ -80,6 +80,7 @@ const OrderList = () => {
       await handlePatchRequest(`/orders/${orderId}/update_status/`, {
         status: newStatus,
       });
+      toast.info("Order Status Updated");
       refetch();
     } catch (error) {
       console.error("Error updating order status:", error);

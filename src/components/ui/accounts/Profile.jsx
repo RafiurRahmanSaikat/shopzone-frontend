@@ -1,17 +1,16 @@
 import { Camera, Lock, Mail, MapPin, Phone, User } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { Loading } from "../..";
+import AuthContext from "../../../context/AuthContext";
+import { handlePatchRequest, handlePostRequest } from "../../../utils/Actions";
+import uploadImage from "../../../utils/UploadImage";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "../../ui/cards/CustomCard";
-
-import { Loading } from "../..";
-import AuthContext from "../../../context/AuthContext";
-import { handlePatchRequest, handlePostRequest } from "../../../utils/Actions";
-
 const FormInput = ({ label, name, type = "text", value, onChange, icon }) => {
   return (
     <div>
@@ -35,6 +34,7 @@ const FormInput = ({ label, name, type = "text", value, onChange, icon }) => {
     </div>
   );
 };
+
 const Profile = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -46,7 +46,7 @@ const Profile = () => {
     email: "",
     phone_number: "",
     address: "",
-    image: null,
+    image: null, // temporary image file or URL
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -64,13 +64,13 @@ const Profile = () => {
         phone_number: user.phone_number || "",
         address: user.address || "",
         username: user.username || "",
-        image: user.image || null,
+        image: user.profile_picture || null, // using backend field name
       });
-      setImagePreview(user.image);
+      setImagePreview(user.profile_picture);
       setLoading(false);
     }
   }, [user]);
-
+  console.log(user);
   const handleProfileChange = (e) => {
     if (e.target.name === "image") {
       const file = e.target.files[0];
@@ -93,18 +93,28 @@ const Profile = () => {
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      // If a new image file is selected, upload it first and replace the file with its URL
+      let imageUrl = formData.image;
+      if (formData.image && formData.image instanceof File) {
+        imageUrl = await uploadImage(formData.image);
+      }
+
       const formPayload = new FormData();
+      // Append fields – note that we send the image URL under "profile_picture"
       Object.keys(formData).forEach((key) => {
         if (formData[key] !== null) {
-          formPayload.append(key, formData[key]);
+          if (key === "image") {
+            formPayload.append("profile_picture", imageUrl);
+          } else {
+            formPayload.append(key, formData[key]);
+          }
         }
       });
-      const response = await handlePatchRequest(
-        "/accounts/users/me/",
-        formPayload,
-        { headers: { "Content-Type": "multipart/form-data" } },
-      );
+      await handlePatchRequest("/accounts/users/me/", formPayload, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       toast.success("Profile updated successfully!");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to update profile");

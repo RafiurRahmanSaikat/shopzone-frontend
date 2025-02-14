@@ -114,6 +114,8 @@ const Router = createBrowserRouter([
           </RoleBasedRoute>
         ),
       },
+      // Catch-all route for 404 error
+      { path: "*", element: <ErrorPage message={"404 Not Found"} /> },
     ],
   },
 ]);

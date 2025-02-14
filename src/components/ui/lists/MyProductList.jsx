@@ -140,7 +140,7 @@ const MyProductList = () => {
   return (
     <div className="flex h-[93vh] flex-col rounded-xl bg-white shadow-lg dark:bg-neutral-900">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="m-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
           Products
         </h2>

@@ -1,6 +1,6 @@
 import { CheckCircle, Delete, MapPin, Phone, User } from "lucide-react";
 import React, { useState } from "react";
-import { Loading, TableFooter } from "../..";
+import { Loading, NoData, TableFooter } from "../..";
 import useFetch from "../../../hooks/UseFetch";
 import { handleDeleteRequest } from "../../../utils/Actions";
 
@@ -66,7 +66,7 @@ export default function UsersList() {
     error,
     refetch,
   } = useFetch(`/accounts/users/?page=${page}`);
-
+  console.log(users);
   if (loading) return <Loading />;
   if (error)
     return (
@@ -75,7 +75,7 @@ export default function UsersList() {
       </div>
     );
 
-  if (!users?.results) return null;
+  if (!users?.results) return <NoData title="No User" />;
 
   const handlePageChange = (newPage) => setPage(Math.max(1, Number(newPage)));
   const deleteUser = async (userId) => {
@@ -86,8 +86,8 @@ export default function UsersList() {
   return (
     <div className="flex h-[93vh] flex-col rounded-xl bg-white shadow-lg dark:bg-neutral-900">
       {/* Header */}
-      <div className="mb-2">
-        <div>
+      <div className="m-2">
+        <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
             Users Directory
           </h2>

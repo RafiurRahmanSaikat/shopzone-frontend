@@ -30,7 +30,6 @@ export { default as StoreModal } from "./ui/modals/StoreModal";
 export { default as DashboardHeader } from "./ui/navbars/DashboardHeader";
 export { default as Navbar } from "./ui/navbars/Navbar";
 export { default as Sidebar } from "./ui/navbars/SideBar";
-export { default as Review } from "./ui/reviews/ReviewSection";
 export { default as SearchBar } from "./ui/search/SearchBar";
 export { default as Stats } from "./ui/stats/Stats";
 export { default as ShinyText } from "./ui/typographs/ShinyText";

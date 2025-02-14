@@ -2,24 +2,28 @@ import { Eye, EyeOff, User } from "lucide-react";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
+import uploadImage from "../../utils/UploadImage";
 
 const SignUpForm = () => {
   const { signup, loading } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [imageData, setImageData] = useState({ file: null, preview: null });
-  const initialFromData = {
+
+  // Use snake_case keys to match your Django backend
+  const initialFormData = {
     username: "",
     email: "",
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     password: "",
-    confirmPassword: "",
+    confirm_password: "",
     role: "",
     address: "",
-    image: null,
+    profile_picture: "",
     phone_number: "",
   };
-  const [formData, setFormData] = useState(initialFromData);
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,10 +35,24 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await signup(formData);
-    console.log(response);
-    if (response.status === 201) setFormData(initialFromData);
-    console.log(response.status);
+
+    try {
+      // If a profile image file is selected, upload it and update the form data
+      if (imageData.file) {
+        const imageUrl = await uploadImage(imageData.file);
+        formData.profile_picture = imageUrl;
+      }
+
+      const response = await signup(formData);
+      console.log(response);
+      if (response.status === 201) {
+        setFormData(initialFormData);
+        setImageData({ file: null, preview: null });
+      }
+      console.log(response.status);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleImageChange = (e) => {
@@ -49,18 +67,20 @@ const SignUpForm = () => {
         file: selectedFile,
         preview: URL.createObjectURL(selectedFile),
       });
+      // Update profile_picture in formData with the file (to be uploaded on submit)
       setFormData((prev) => ({
         ...prev,
-        image: selectedFile,
+        profile_picture: selectedFile,
       }));
     } else {
       setImageData({ file: null, preview: null });
       setFormData((prev) => ({
         ...prev,
-        image: null,
+        profile_picture: "",
       }));
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-2">
       {imageData.preview ? (
@@ -76,7 +96,7 @@ const SignUpForm = () => {
           <label className="flex h-28 w-28 cursor-pointer flex-col items-center justify-center rounded-full border border-gray-300 bg-gray-100 text-sm font-medium text-gray-900 hover:bg-gray-200">
             <span className="text-center">Profile Picture</span>
             <input
-              name="image"
+              name="profile_picture"
               type="file"
               onChange={handleImageChange}
               accept="image/*"
@@ -88,18 +108,18 @@ const SignUpForm = () => {
           </label>
         </div>
       )}
-      {/* First Name and Last Name */}
 
+      {/* First Name and Last Name */}
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="w-full md:w-1/2">
           <label className="block text-sm font-medium text-gray-700">
             First Name
           </label>
           <input
-            required={true}
+            required
             type="text"
-            name="firstName"
-            value={formData.firstName}
+            name="first_name"
+            value={formData.first_name}
             onChange={handleInputChange}
             className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="First Name"
@@ -111,16 +131,17 @@ const SignUpForm = () => {
             Last Name
           </label>
           <input
-            required={true}
+            required
             type="text"
-            name="lastName"
-            value={formData.lastName}
+            name="last_name"
+            value={formData.last_name}
             onChange={handleInputChange}
             className="w-full rounded-lg border border-gray-300 p-3 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="Last Name"
           />
         </div>
       </div>
+
       {/* Username and Account Type */}
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="w-full md:w-1/2">
@@ -128,7 +149,7 @@ const SignUpForm = () => {
             Username
           </label>
           <input
-            required={true}
+            required
             type="text"
             name="username"
             autoComplete="username"
@@ -155,6 +176,7 @@ const SignUpForm = () => {
           </select>
         </div>
       </div>
+
       {/* Email and Mobile Number */}
       <div className="flex flex-col gap-4 md:flex-row">
         <div>
@@ -162,7 +184,7 @@ const SignUpForm = () => {
             Email
           </label>
           <input
-            required={true}
+            required
             type="email"
             name="email"
             value={formData.email}
@@ -177,7 +199,7 @@ const SignUpForm = () => {
             Mobile Number
           </label>
           <input
-            required={true}
+            required
             type="text"
             name="phone_number"
             autoComplete="phone_number"
@@ -188,6 +210,7 @@ const SignUpForm = () => {
           />
         </div>
       </div>
+
       {/* Password and Confirm Password */}
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="relative w-full md:w-1/2">
@@ -195,7 +218,7 @@ const SignUpForm = () => {
             Password
           </label>
           <input
-            required={true}
+            required
             type={showPassword ? "text" : "password"}
             name="password"
             value={formData.password}
@@ -222,11 +245,11 @@ const SignUpForm = () => {
             Confirm Password
           </label>
           <input
-            required={true}
+            required
             type={showPassword ? "text" : "password"}
-            name="confirmPassword"
+            name="confirm_password"
             autoComplete="confirm-password"
-            value={formData.confirmPassword}
+            value={formData.confirm_password}
             onChange={handleInputChange}
             className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none"
             placeholder="••••••••"
@@ -244,6 +267,7 @@ const SignUpForm = () => {
           </button>
         </div>
       </div>
+
       {/* Address */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
@@ -266,33 +290,6 @@ const SignUpForm = () => {
       >
         {loading ? "Creating Account..." : "Create Account"}
       </button>
-      {/* <div className="mt-6">
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-2 text-gray-500">
-              Or continue with
-            </span>
-          </div>
-        </div>
-        <div className="mt-6 grid grid-cols-3 gap-3">
-          {[
-            { icon: Github01Icon, label: "GitHub" },
-            { icon: TwitterIcon, label: "Twitter" },
-            { icon: Facebook01Icon, label: "Facebook" },
-          ].map(({ icon: Icon, label }) => (
-            <button
-              key={label}
-              type="button"
-              className="flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
-            >
-              <Icon className="h-5 w-5" />
-            </button>
-          ))}
-        </div>
-      </div> */}
     </form>
   );
 };

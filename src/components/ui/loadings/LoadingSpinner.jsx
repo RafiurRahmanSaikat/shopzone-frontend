@@ -7,7 +7,7 @@ export default function LoadingSpinner() {
         className="flex h-full w-full items-center justify-center"
       >
         <svg
-          className="h-20 w-20 animate-spin stroke-gray-500"
+          className="h-20 w-20 animate-spin stroke-zinc-800 dark:stroke-gray-100"
           viewBox="0 0 256 256"
         >
           <line
@@ -83,7 +83,7 @@ export default function LoadingSpinner() {
             strokeWidth="24"
           ></line>
         </svg>
-        <span className="ml-4 text-4xl font-medium text-gray-500">
+        <span className="ml-4 text-4xl font-medium text-zinc-800 dark:text-zinc-100">
           Loading...
         </span>
       </div>

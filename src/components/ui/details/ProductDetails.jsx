@@ -42,8 +42,12 @@ const RecommendationSummary = ({ reviews, product }) => {
     try {
       const payload = { product: productId, quantity: qty };
       const response = await handlePostRequest("/cart/", payload);
-      if (response) {
+      if (response.status == 201) {
         toast.success("Product added to cart successfully!");
+      } else if (response.status == 400) {
+        toast.error(response.data.detail);
+      } else if (response.status == 401) {
+        toast.error("Login to add Product in cart !!");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -135,6 +139,8 @@ const ReviewForm = ({ productId, refetch }) => {
         refetch();
       } else if (response.status == 400) {
         toast.error(response.data.detail);
+      } else if (response.status == 401) {
+        toast.error("Login to add Review !!");
       }
       setRating(0);
       setComment("");
