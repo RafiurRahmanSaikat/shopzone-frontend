@@ -26,7 +26,7 @@ const ProductList = ({
             Latest Products
           </h2>
           {/* Use CSS grid for responsive layout */}
-          <div className="grid grid-cols-1 gap-6 px-4 px-20 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 px-4 md:grid-cols-3 md:px-10 lg:grid-cols-4">
             {products.map((product) => (
               <ProductCard
                 key={`${product.id}-${product.name}`}
