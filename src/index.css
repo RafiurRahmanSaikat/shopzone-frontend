@@ -1,3 +1,84 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme  {
+  --color-primary: 59 130 246; /* blue-500 */
+  --color-primary-light: 96 165 250; /* blue-400 */
+  --color-secondary: 249 115 22; /* orange-500 */
+  --color-secondary-light: 251 146 60; /* orange-400 */
+  --color-accent: 217 70 239; /* purple-600 */
+  --color-accent-light: 232 121 249; /* purple-400 */
+  --color-success: 34 197 94; /* green-500 */
+  --color-warning: 234 179 8; /* yellow-500 */
+  --color-danger: 239 68 68; /* red-500 */
+  --color-info: 6 182 212; /* cyan-500 */
+}
+
+/* Custom utility classes */
+.bg-primary {
+  background-color: rgb(var(--color-primary));
+}
+
+.bg-secondary {
+  background-color: rgb(var(--color-secondary));
+}
+
+.text-primary {
+  color: rgb(var(--color-primary));
+}
+
+.text-secondary {
+  color: rgb(var(--color-secondary));
+}
+
+.border-primary {
+  border-color: rgb(var(--color-primary));
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(to right, rgb(var(--color-primary)), rgb(var(--color-accent)));
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(to right, rgb(var(--color-secondary)), rgb(var(--color-warning)));
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}

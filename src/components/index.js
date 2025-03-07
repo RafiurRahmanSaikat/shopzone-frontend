@@ -11,7 +11,7 @@ export { default as ProductCard } from "./ui/cards/ProductCard";
 export { default as StoreCard } from "./ui/cards/StoreCard";
 export { default as ShoppingCart } from "./ui/carts/ShoppingCart";
 export { default as ProductDetails } from "./ui/details/ProductDetails";
-export { default as NoData } from "./ui/emptyStates/Nodata";
+export { default as NoData } from "./ui/emptyStates/NoData";
 export { default as ErrorPage } from "./ui/errors/ErrorPage";
 export { default as FAQ } from "./ui/faqs/FAQ";
 export { default as Footer } from "./ui/footers/Footer";

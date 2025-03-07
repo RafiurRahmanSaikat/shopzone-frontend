@@ -54,14 +54,15 @@ const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         `${BASE_URL_BACKEND}/token/`,
         credentials,
       );
-      saveToken(data.access, data.refresh);
+      console.log(response);
+      saveToken(response.data.access, response.data.refresh);
       toast.success("Login successful!");
       await fetchProfile();
-      return { status: 200 };
+      return response.status;
     } catch (error) {
       toast.error("Invalid credentials");
       return { status: error.response?.status || 500 };
@@ -78,6 +79,7 @@ const AuthProvider = ({ children }) => {
         formData,
       );
       toast.success("Signup successful!");
+
       return response;
     } catch (error) {
       toast.error("Signup failed. Try again.");
@@ -107,7 +109,9 @@ const AuthProvider = ({ children }) => {
     } finally {
       removeToken();
       toast.info("Logged out successfully!");
-      window.location.replace("/login");
+      setTimeout(() => {
+        window.location.replace("/login");
+      }, 1000);
     }
   };
 

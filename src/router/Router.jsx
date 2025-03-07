@@ -27,7 +27,7 @@ const Router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "login", element: <AuthComponent /> },
       { path: "signup", element: <AuthComponent /> },
-      { path: "product/:id", element: <ProductDetails /> },
+      { path: "products/:id", element: <ProductDetails /> },
     ],
   },
   {
