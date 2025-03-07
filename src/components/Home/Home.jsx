@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { FAQ, Hero, SearchBar, Stats } from "../../components";
+import { FAQ, Hero, Loading, Stats } from "../../components";
 import UseFetch from "../../hooks/UseFetch";
 import { handlePostRequest } from "../../utils/Actions";
+import Error from "../ui/errors/Error";
 import { CategoriesSection } from "./categories-section";
 import { FlashSaleSection } from "./flash-sale-section";
 import { FridayDealsSection } from "./friday-deals-section";
@@ -186,27 +187,11 @@ const HomePage = () => {
   };
 
   if (productsLoading || categoriesLoading) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <p>lo</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (productsError || categoriesError) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-bold text-red-600">Error Loading Data</h2>
-          <p className="mt-2 text-gray-600">
-            {productsError || categoriesError}
-          </p>
-          <p className="mt-4">
-            Please check your API connection and try again.
-          </p>
-        </div>
-      </div>
-    );
+    return <Error />;
   }
 
   // Check if we have any products for each section
@@ -216,17 +201,8 @@ const HomePage = () => {
   const flashSaleProducts = getFlashSaleProducts();
 
   return (
-    <div className="overflow-hidden">
+    <div className="">
       <Hero />
-
-      <SearchBar
-        searchFilters={searchFilters}
-        onChange={setSearchFilters}
-        onSubmit={handleSearchSubmit}
-        onClear={handleClearSearch}
-        categories={categories}
-        onToggleCategory={handleToggleCategory}
-      />
 
       {fridayDeals.length > 0 && (
         <FridayDealsSection featuredProducts={fridayDeals} />

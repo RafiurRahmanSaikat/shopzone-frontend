@@ -1,6 +1,6 @@
-// export const BASE_URL_BACKEND = "http://127.0.0.1:8000/api";
+export const BASE_URL_BACKEND = "http://127.0.0.1:8000/api";
 
-export const BASE_URL_BACKEND = "https://shopzone-backend-gilt.vercel.app/api";
+// export const BASE_URL_BACKEND = "https://shopzone-backend-gilt.vercel.app/api";
 
 export const sidebarLinks = {
   admin: [

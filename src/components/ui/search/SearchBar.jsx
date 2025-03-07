@@ -7,7 +7,7 @@ const SearchBar = ({
   onToggleCategory,
 }) => {
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <div className="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 sm:py-24 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-600 sm:text-6xl dark:text-neutral-200">
