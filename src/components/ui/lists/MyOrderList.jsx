@@ -12,7 +12,7 @@ const StatusDropdown = ({ order }) => {
     Confirmed:
       "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-400",
     Delivered:
-      "bg-gray-100 text-gray-800 dark:bg-gray-500/20 dark:text-gray-400",
+      "bg-gray-100 text-gray-800 dark:bg-zinc-500/20 dark:text-gray-400",
   };
 
   return (

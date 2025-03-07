@@ -9,7 +9,7 @@ const UserStatus = ({ isAuthenticated }) => (
     className={`inline-flex items-center gap-x-1 rounded-full px-2 py-1 text-xs font-medium ${
       isAuthenticated
         ? "bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-400"
-        : "bg-gray-100 text-gray-800 dark:bg-gray-500/20 dark:text-gray-300"
+        : "bg-gray-100 text-gray-800 dark:bg-zinc-500/20 dark:text-gray-300"
     }`}
   >
     <CheckCircle className="h-3 w-3" />
@@ -28,7 +28,7 @@ const UserRole = ({ role }) => {
 
   return (
     <span
-      className={`rounded-md px-2 py-1 text-sm font-medium ${roleColors[role] || "bg-gray-100 text-gray-700 dark:bg-gray-500/20 dark:text-gray-300"}`}
+      className={`rounded-md px-2 py-1 text-sm font-medium ${roleColors[role] || "bg-gray-100 text-gray-700 dark:bg-zinc-500/20 dark:text-gray-300"}`}
     >
       {role.replace("_", " ").charAt(0).toUpperCase() + role.slice(1)}
     </span>

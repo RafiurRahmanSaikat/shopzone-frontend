@@ -50,7 +50,7 @@ const Navbar = () => {
   const commonLinks = [
     { href: "/", icon: <Home className="h-4 w-4" />, label: "Home" },
     {
-      href: "/all_products",
+      href: "/products",
       icon: <Package className="h-4 w-4" />,
       label: "Products",
     },
@@ -89,79 +89,83 @@ const Navbar = () => {
         },
       ];
 
-  // Cart link (only for authenticated users)
-  // const cartLink = user
-  //   ? {
-  //       href: "/dashboard/cart",
-  //       icon: <ShoppingCart className="h-4 w-4" />,
-  //       label: "Cart",
-  //     }
-  //   : null;
-
   // Combine all links
-  const navLinks = [...commonLinks];
-  // if (cartLink) navLinks.push(cartLink);
-  navLinks.push(...authLinks);
+  const navLinks = [...commonLinks, ...authLinks];
 
+  // Improved theme toggle with animation
   const ThemeToggleButton = () => (
     <button
       onClick={toggleTheme}
-      className="rounded-lg p-2 transition-colors hover:bg-purple-400 dark:text-white"
+      className="relative overflow-hidden rounded-full p-2 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700"
       aria-label={`Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
     >
       {currentTheme === "dark" ? (
-        <Sun className="h-5 w-5" />
+        <Sun className="ease-spring h-5 w-5 text-amber-400 transition-transform duration-300" />
       ) : (
-        <Moon className="h-5 w-5" />
+        <Moon className="ease-spring h-5 w-5 text-indigo-600 transition-transform duration-300" />
       )}
+      <span className="absolute inset-0 rounded-full bg-gray-200 opacity-0 transition-opacity dark:bg-zinc-700"></span>
     </button>
   );
 
-  const NavLink = ({ href, icon, label, action }) => (
-    <Link
-      to={href}
-      onClick={(e) => {
-        if (action) {
-          e.preventDefault();
-          action();
-        }
-      }}
-      className="inline-flex items-center rounded-full px-4 py-2 transition-colors hover:bg-violet-500 hover:text-white dark:text-white dark:hover:bg-gray-700"
-    >
-      {icon}
-      <span className="ml-2">{label}</span>
-    </Link>
-  );
+  // Enhanced NavLink with animation and active state
+  const NavLink = ({ href, icon, label, action }) => {
+    const isActive = location.pathname === href;
+
+    return (
+      <Link
+        to={href}
+        onClick={(e) => {
+          if (action) {
+            e.preventDefault();
+            action();
+          }
+        }}
+        className={`group flex items-center gap-2 rounded-full px-4 py-2 transition-all duration-300 ${
+          isActive
+            ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300"
+            : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-200 dark:hover:bg-indigo-900/30 dark:hover:text-indigo-300"
+        }`}
+      >
+        <span
+          className={`transition-transform duration-300 group-hover:scale-110 ${isActive ? "text-indigo-600 dark:text-indigo-300" : ""}`}
+        >
+          {icon}
+        </span>
+        <span className={isActive ? "font-medium" : ""}>{label}</span>
+      </Link>
+    );
+  };
 
   return (
     <nav className="fixed top-0 right-0 left-0 z-50 mx-auto mt-4 w-full max-w-7xl px-4 md:w-[90%]">
-      <div className="rounded-3xl bg-white/80 px-4 py-3 shadow-md backdrop-blur-lg dark:bg-zinc-800/90">
+      <div className="rounded-3xl bg-white/90 px-4 py-3 shadow-lg backdrop-blur-lg transition-all duration-300 dark:bg-zinc-900/90 dark:shadow-gray-950/20">
         <div className="mx-auto flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3">
-              <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-xl font-bold text-transparent">
+              <span className="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-xl font-bold text-transparent transition-all duration-300 hover:from-indigo-600 hover:to-purple-700">
                 ShopZone
               </span>
             </Link>
           </div>
 
-          {/* Search button (mobile) or search bar (desktop) */}
+          {/* Search bar */}
           <div className="ml-4 flex-1 md:mx-4 md:max-w-md">
             {isSearchOpen ? (
               <form onSubmit={handleSearchSubmit} className="relative w-full">
                 <input
                   ref={searchInputRef}
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-gray-300 bg-white/80 px-4 py-2 pr-10 text-sm focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-zinc-800/90 dark:text-white"
+                  className="focus:ring-opacity-50 w-full rounded-full border border-gray-300 bg-white/90 px-4 py-2 pr-10 text-sm shadow-sm transition-all duration-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:outline-none dark:border-gray-700 dark:bg-zinc-800/90 dark:text-white dark:focus:border-indigo-400 dark:focus:ring-indigo-800"
                 />
                 <button
                   type="button"
                   onClick={() => setIsSearchOpen(false)}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -169,10 +173,10 @@ const Navbar = () => {
             ) : (
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden items-center rounded-full border border-gray-300 bg-white/80 px-4 py-2 text-sm text-gray-500 hover:border-violet-500 hover:text-violet-600 md:flex dark:border-gray-700 dark:bg-zinc-800/90 dark:text-gray-400 dark:hover:border-violet-400 dark:hover:text-violet-400"
+                className="hidden w-full items-center rounded-full border border-gray-300 bg-white/90 px-4 py-2 text-sm text-gray-500 shadow-sm transition-all duration-300 hover:border-indigo-500 hover:text-indigo-600 md:flex dark:border-gray-700 dark:bg-zinc-800/90 dark:text-gray-400 dark:hover:border-indigo-400 dark:hover:text-indigo-400"
               >
                 <Search className="mr-2 h-4 w-4" />
-                <span>Search...</span>
+                <span>Search products...</span>
               </button>
             )}
           </div>
@@ -190,14 +194,14 @@ const Navbar = () => {
             {!isSearchOpen && (
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="mr-2 rounded-full p-2 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800"
+                className="mr-2 rounded-full p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 <Search className="h-5 w-5" />
               </button>
             )}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="rounded-full p-2 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="rounded-full p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
             >
@@ -206,7 +210,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu with animation */}
         {isMenuOpen && (
           <div className="mt-3 space-y-2 border-t border-gray-200 pt-3 md:hidden dark:border-gray-700">
             {navLinks.map((link) => (
@@ -214,7 +218,10 @@ const Navbar = () => {
                 <NavLink {...link} />
               </div>
             ))}
-            <div className="px-2 pt-2">
+            <div className="flex items-center justify-between px-2 pt-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Theme
+              </span>
               <ThemeToggleButton />
             </div>
           </div>
@@ -225,156 +232,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// import {
-//   Home,
-//   LayoutDashboard,
-//   ListChecks,
-//   LogOut,
-//   Menu,
-//   Moon,
-//   Package,
-//   ScanFace,
-//   Settings,
-//   ShoppingCart,
-//   Store,
-//   Sun,
-//   UserRoundPlus,
-//   Users,
-// } from "lucide-react";
-// import React, { useContext, useState } from "react";
-// import { Link } from "react-router-dom";
-// import { sidebarLinks } from "../../../constants";
-// import AuthContext from "../../../context/AuthContext";
-// import { useTheme } from "../../../theme/useTheme";
-
-// const Navbar = () => {
-//   const { currentTheme, toggleTheme } = useTheme();
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-//   const { user, logout } = useContext(AuthContext);
-
-//   let navLinks = [];
-
-//   if (user) {
-//     navLinks.push(
-//       { href: "/", icon: <Home className="h-4 w-4" />, label: "Home" },
-//       {
-//         href: "/dashboard",
-//         icon: <LayoutDashboard className="h-4 w-4" />,
-//         label: "Dashboard",
-//       },
-//       {
-//         href: "#",
-//         icon: <LogOut className="h-4 w-4" />,
-//         label: "Logout",
-//         action: logout,
-//       },
-//     );
-
-//     const roleIcons = {
-//       Profile: <Settings className="h-4 w-4" />,
-//       Users: <Users className="h-4 w-4" />,
-//       Products: <Package className="h-4 w-4" />,
-//       Stores: <Store className="h-4 w-4" />,
-//       Orders: <ListChecks className="h-4 w-4" />,
-//       "My Orders": <ListChecks className="h-4 w-4" />,
-//       Cart: <ShoppingCart className="h-4 w-4" />,
-//       Manage: <Store className="h-4 w-4" />,
-//     };
-
-//     const roleLinks = sidebarLinks[user.role] || [];
-//     roleLinks.forEach((link) => {
-//       navLinks.unshift({
-//         href: link.path,
-//         icon: roleIcons[link.name] || <Settings className="h-4 w-4" />, // Default to Settings if no match
-//         label: link.name,
-//       });
-//     });
-//   } else {
-//     navLinks.push(
-//       {
-//         href: "/login",
-//         icon: <ScanFace className="h-4 w-4" />,
-//         label: "Login",
-//       },
-//       {
-//         href: "/signup",
-//         icon: <UserRoundPlus className="h-4 w-4" />,
-//         label: "Register",
-//       },
-//     );
-//   }
-
-//   const ThemeToggleButton = () => (
-//     <button
-//       onClick={toggleTheme}
-//       className="rounded-lg p-2 transition-colors hover:bg-purple-400 dark:text-white"
-//       aria-label={`Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
-//     >
-//       {currentTheme === "dark" ? (
-//         <Sun className="h-5 w-5" />
-//       ) : (
-//         <Moon className="h-5 w-5" />
-//       )}
-//     </button>
-//   );
-
-//   const NavLink = ({ href, icon, label, action }) => (
-//     <Link
-//       to={href}
-//       onClick={(e) => {
-//         if (action) {
-//           e.preventDefault();
-//           action();
-//         }
-//       }}
-//       className="inline-flex items-center rounded-full px-4 py-2 transition-colors hover:bg-violet-500 hover:text-white dark:text-white dark:hover:bg-gray-700"
-//     >
-//       {icon}
-//       <span className="ml-2">{label}</span>
-//     </Link>
-//   );
-
-//   return (
-//     <nav className="fixed top-0 right-0 left-0 z-50 mx-auto mt-4 w-3/4 rounded-3xl shadow-sm backdrop-blur-2xl dark:bg-white/5">
-//       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-4">
-//         <div className="flex items-center">
-//           <Link to="/" className="flex items-center space-x-3">
-//             <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-xl font-bold text-transparent">
-//               ShopZone
-//             </span>
-//           </Link>
-//         </div>
-
-//         <div className="hidden items-center space-x-1 md:flex">
-//           {navLinks.map((link) => (
-//             <NavLink key={link.href} {...link} />
-//           ))}
-//           <ThemeToggleButton />
-//         </div>
-
-//         <button
-//           onClick={() => setIsMenuOpen(!isMenuOpen)}
-//           className="rounded-full p-2 transition-colors hover:bg-white/10 md:hidden"
-//           aria-label="Toggle menu"
-//           aria-expanded={isMenuOpen}
-//         >
-//           <Menu className="h-6 w-6" />
-//         </button>
-//       </div>
-
-//       {isMenuOpen && (
-//         <div className="px-4 pb-4 md:hidden">
-//           {navLinks.map((link) => (
-//             <NavLink key={link.href} {...link} />
-//           ))}
-//           <div className="mt-2">
-//             <ThemeToggleButton />
-//           </div>
-//         </div>
-//       )}
-//     </nav>
-//   );
-// };
-
-// export default Navbar;

@@ -1,22 +1,44 @@
 import { ArrowUpRight, Star, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import Badge from "../common/Badge";
+import Container from "../common/Container";
+import Grid from "../common/Grid";
+import Heading from "../common/Heading";
+import Section from "../common/Section";
+import Text from "../common/Text";
 
-export function TrendingSection({ products = [] }) {
+const TrendingSection = ({
+  products = [],
+  title = "Trending Items",
+  subtitle = "Discover our best-reviewed products loved by customers",
+  badgeText = "Top Rated Products",
+  className = "",
+  ...props
+}) => {
   return (
-    <section className="bg-white px-4 py-16 md:px-6 md:py-20 dark:bg-zinc-900">
-      <div className="container mx-auto max-w-7xl">
+    <Section background="white" className={className} {...props}>
+      <Container>
         <div className="mb-10 text-center">
-          <span className="inline-block rounded-full bg-violet-100 px-3 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900/30 dark:text-violet-300">
-            <TrendingUp className="mr-1 inline h-4 w-4" /> Top Rated Products
-          </span>
-          <h2 className="mt-3 text-3xl font-bold text-zinc-800 md:text-4xl lg:text-5xl dark:text-zinc-100">
-            Trending Items
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-zinc-600 md:text-lg dark:text-zinc-300">
-            Discover our best-reviewed products loved by customers
-          </p>
+          {badgeText && (
+            <Badge
+              variant="primary"
+              className="mb-4"
+              icon={<TrendingUp className="mr-1 h-4 w-4" />}
+            >
+              {badgeText}
+            </Badge>
+          )}
+
+          <Heading>{title}</Heading>
+
+          {subtitle && (
+            <Text size="lg" muted className="mx-auto mt-3 max-w-2xl">
+              {subtitle}
+            </Text>
+          )}
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+        <Grid cols={2} gap={6}>
           {products.map((product, index) => (
             <div
               key={product.id}
@@ -36,7 +58,10 @@ export function TrendingSection({ products = [] }) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
 
               <div className="absolute right-0 bottom-0 left-0 translate-y-8 p-6 text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                <h3 className="text-xl font-bold">{product.name}</h3>
+                <Text size="xl" weight="bold">
+                  {product.name}
+                </Text>
+
                 <div className="mt-2 flex items-center">
                   <div className="flex">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -52,9 +77,12 @@ export function TrendingSection({ products = [] }) {
                   </div>
                   <span className="ml-2 text-sm">({product.rating})</span>
                 </div>
+
                 <div className="mt-3 flex items-center justify-between">
                   <div>
-                    <span className="text-lg font-bold">${product.price}</span>
+                    <Text size="lg" weight="bold">
+                      ${product.price}
+                    </Text>
                   </div>
                   <Link
                     to={`/products/${product.id}`}
@@ -66,8 +94,10 @@ export function TrendingSection({ products = [] }) {
               </div>
             </div>
           ))}
-        </div>
-      </div>
-    </section>
+        </Grid>
+      </Container>
+    </Section>
   );
-}
+};
+
+export default TrendingSection;

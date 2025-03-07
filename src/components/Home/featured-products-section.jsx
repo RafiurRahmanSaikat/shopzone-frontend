@@ -1,19 +1,20 @@
 import { ArrowRight, Award } from "lucide-react";
+import React from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ui/cards/ProductCard";
 
 export function FeaturedProductsSection({ products = [] }) {
   return (
-    <section className="section bg-gray-50 py-24">
+    <section className="section bg-gray-50 py-24 dark:bg-zinc-900">
       <div className="container-custom">
         <div className="mb-12 text-center">
-          <span className="inline-block rounded-full px-3 py-1 text-sm font-semibold">
+          <span className="inline-block rounded-full px-3 py-1 text-sm font-semibold dark:text-zinc-300">
             <Award className="mr-1 inline h-4 w-4" /> Featured Products
           </span>
-          <h2 className="font-heading mt-3 text-4xl font-bold text-gray-900">
+          <h2 className="font-heading mt-3 text-4xl font-bold text-gray-900 dark:text-zinc-100">
             Our Best Sellers
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">
+          <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600 dark:text-zinc-400">
             Shop our most popular products curated for quality and value
           </p>
         </div>

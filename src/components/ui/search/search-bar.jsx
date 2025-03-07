@@ -37,7 +37,7 @@ const SearchBar = ({
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <div className="rounded-xl bg-white p-4 shadow-md dark:bg-gray-800">
+      <div className="rounded-xl bg-white p-4 shadow-md dark:bg-zinc-800">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4 md:flex-row md:items-end">
             {/* Search Input */}
@@ -57,7 +57,7 @@ const SearchBar = ({
                   onChange={(e) =>
                     onChange({ ...searchFilters, search: e.target.value })
                   }
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-zinc-900 dark:text-white"
                 />
                 <Search className="absolute top-1/2 right-3 h-5 w-5 -translate-y-1/2 text-gray-400" />
               </div>
@@ -89,7 +89,7 @@ const SearchBar = ({
                   onChange={(e) =>
                     onChange({ ...searchFilters, minPrice: e.target.value })
                   }
-                  className="w-24 rounded-lg border border-gray-300 bg-white px-3 py-2 focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-24 rounded-lg border border-gray-300 bg-white px-3 py-2 focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-zinc-900 dark:text-white"
                 />
                 <span className="text-gray-500 dark:text-gray-400">-</span>
                 <input
@@ -100,7 +100,7 @@ const SearchBar = ({
                   onChange={(e) =>
                     onChange({ ...searchFilters, maxPrice: e.target.value })
                   }
-                  className="w-24 rounded-lg border border-gray-300 bg-white px-3 py-2 focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-24 rounded-lg border border-gray-300 bg-white px-3 py-2 focus:border-violet-500 focus:outline-none dark:border-gray-700 dark:bg-zinc-900 dark:text-white"
                 />
               </div>
             </div>
@@ -120,7 +120,7 @@ const SearchBar = ({
                 <button
                   type="button"
                   onClick={onClear}
-                  className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                  className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:outline-none dark:border-gray-600 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-gray-600"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -143,7 +143,7 @@ const SearchBar = ({
                     className={`rounded-full px-3 py-1 text-xs font-medium ${
                       searchFilters.category === category.id.toString()
                         ? "bg-violet-600 text-white"
-                        : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                        : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-gray-600"
                     }`}
                   >
                     {category.name}

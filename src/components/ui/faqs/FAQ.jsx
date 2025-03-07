@@ -25,7 +25,7 @@ const FAQ = () => {
     {
       question: "Is my payment information secure?",
       answer:
-        "Absolutely! We use industry-standard encryption to protect your payment details and ensure a secure checkout experience.",
+        "We use industry-standard encryption to protect your payment details and ensure a secure checkout experience.",
     },
     {
       question: "How do I contact customer support?",
@@ -39,24 +39,24 @@ const FAQ = () => {
       <div className="grid gap-10 md:grid-cols-5">
         <div className="md:col-span-2">
           <div className="max-w-xs">
-            <h2 className="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">
+            <h2 className="text-2xl font-bold md:text-4xl md:leading-tight dark:text-zinc-100">
               Frequently
               <br />
               asked questions
             </h2>
-            <p className="mt-1 hidden text-gray-600 md:block dark:text-neutral-400">
+            <p className="mt-1 hidden text-gray-600 md:block dark:text-zinc-400">
               Find answers to common questions about ShopZone.
             </p>
           </div>
         </div>
         <div className="md:col-span-3">
-          <div className="divide-y divide-gray-200 dark:divide-neutral-700">
+          <div className="divide-y divide-gray-200 dark:divide-zinc-700">
             {faqs.map((faq, index) => (
               <details key={index} className="py-4">
-                <summary className="cursor-pointer text-lg font-semibold text-gray-600 dark:text-neutral-200">
+                <summary className="cursor-pointer text-lg font-semibold text-gray-600 dark:text-zinc-200">
                   {faq.question}
                 </summary>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400">
+                <p className="mt-2 text-gray-600 dark:text-zinc-400">
                   {faq.answer}
                 </p>
               </details>

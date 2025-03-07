@@ -181,7 +181,7 @@ const ProductModal = ({ isOpen, onClose, initialData = null, onSuccess }) => {
               </button>
             </div>
           ) : (
-            <label className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:border-gray-400 dark:border-gray-600 dark:bg-gray-700/50 dark:hover:border-gray-500">
+            <label className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:border-gray-400 dark:border-gray-600 dark:bg-zinc-700/50 dark:hover:border-gray-500">
               <Upload className="mb-2 h-6 w-6 text-gray-400 dark:text-gray-500" />
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 Upload Product Image

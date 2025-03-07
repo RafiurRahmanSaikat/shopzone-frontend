@@ -103,7 +103,7 @@ const PaymentForm = ({ totalAmount, onPaymentSuccess }) => {
           placeholder="Full Name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-gray-200 dark:text-zinc-900 dark:placeholder-gray-500"
+          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-zinc-200 dark:text-zinc-900 dark:placeholder-gray-500"
           required
         />
       </div>
@@ -117,7 +117,7 @@ const PaymentForm = ({ totalAmount, onPaymentSuccess }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-gray-200 dark:text-zinc-900 dark:placeholder-gray-500"
+          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-zinc-200 dark:text-zinc-900 dark:placeholder-gray-500"
           required
         />
       </div>
@@ -131,7 +131,7 @@ const PaymentForm = ({ totalAmount, onPaymentSuccess }) => {
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-gray-200 dark:text-zinc-900 dark:placeholder-gray-500"
+          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-zinc-200 dark:text-zinc-900 dark:placeholder-gray-500"
           required
         />
       </div>
@@ -144,12 +144,12 @@ const PaymentForm = ({ totalAmount, onPaymentSuccess }) => {
           placeholder="Shipping Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-gray-200 dark:text-zinc-900 dark:placeholder-gray-500"
+          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-zinc-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none dark:border-gray-300 dark:bg-zinc-200 dark:text-zinc-900 dark:placeholder-gray-500"
           required
         />
       </div>
 
-      <div className="mb-6 rounded border border-gray-300 bg-white p-4 dark:border-gray-600 dark:bg-gray-200">
+      <div className="mb-6 rounded border border-gray-300 bg-white p-4 dark:border-gray-600 dark:bg-zinc-200">
         <CardElement
           options={{ hidePostalCode: true }}
           onChange={handleCardChange}

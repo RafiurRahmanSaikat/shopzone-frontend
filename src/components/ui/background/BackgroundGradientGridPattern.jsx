@@ -1,7 +1,7 @@
 export default function BackgroundGradientGridPattern() {
   return (
     <>
-      <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-gray-900">
+      <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-zinc-900">
         {/* Gradient background */}
         <div className="inset-0 bg-gradient-to-br from-gray-900 via-slate-900 to-indigo-900 opacity-50"></div>
 
