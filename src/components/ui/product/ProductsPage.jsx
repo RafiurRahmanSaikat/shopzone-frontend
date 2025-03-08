@@ -11,7 +11,7 @@ import Text from "../common/Text";
 import ProductFilters from "./ProductFilters";
 import ProductListHeader from "./ProductListHeader";
 
-const EnhancedProductsPage = () => {
+const ProductsPage = () => {
   const location = useLocation();
   const [searchFilters, setSearchFilters] = useState({
     search: "",
@@ -288,4 +288,4 @@ const EnhancedProductsPage = () => {
   );
 };
 
-export default EnhancedProductsPage;
+export default ProductsPage;

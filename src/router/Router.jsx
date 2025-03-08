@@ -17,7 +17,7 @@ import {
   UsersList,
 } from "@components";
 import { createBrowserRouter } from "react-router-dom";
-import EnhancedProductsPage from "../components/ui/product/EnhancedProductsPage";
+import EnhancedProductsPage from "../components/ui/product/ProductsPage";
 
 const Router = createBrowserRouter([
   {

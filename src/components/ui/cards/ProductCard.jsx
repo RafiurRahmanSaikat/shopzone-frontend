@@ -1,4 +1,4 @@
-import { Heart, ShoppingCart, Star } from "lucide-react";
+import { ShoppingCart, Star } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -29,13 +29,9 @@ const ProductCard = ({ product, onAddToCart }) => {
     if (stock === 0 || isAddingToCart) return;
 
     setIsAddingToCart(true);
-
-    // Call the actual add to cart function
     if (onAddToCart) {
       onAddToCart();
     }
-
-    // Reset loading state after a short delay
     setTimeout(() => {
       setIsAddingToCart(false);
     }, 600);
@@ -71,14 +67,6 @@ const ProductCard = ({ product, onAddToCart }) => {
         )}
       </div>
 
-      {/* Wishlist button */}
-      <button
-        className="absolute top-2 right-2 z-10 rounded-full bg-white/80 p-1.5 text-gray-700 shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-red-500 dark:bg-zinc-700/80 dark:text-gray-200 dark:hover:text-red-400"
-        aria-label="Add to wishlist"
-      >
-        <Heart size={18} className={isHovered ? "animate-pulse" : ""} />
-      </button>
-
       {/* Product image */}
       <Link to={`/products/${id}`} className="block overflow-hidden">
         <div className="relative h-48 bg-gray-100 dark:bg-zinc-900">
@@ -90,34 +78,12 @@ const ProductCard = ({ product, onAddToCart }) => {
 
           {/* Image overlay on hover */}
           <div
-            className={`absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 ${isHovered ? "opacity-100" : ""}`}
+            className={`absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 ${
+              isHovered ? "opacity-100" : ""
+            }`}
           ></div>
         </div>
       </Link>
-
-      {/* Quick add button */}
-      <div
-        className={`absolute inset-x-0 bottom-[4.5rem] transform p-2 transition-all duration-300 ${isHovered ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
-      >
-        <button
-          onClick={handleAddToCart}
-          disabled={stock === 0 || isAddingToCart}
-          className={`flex w-full items-center justify-center rounded-full px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 ${
-            stock > 0
-              ? "bg-indigo-600 text-white hover:bg-indigo-700"
-              : "cursor-not-allowed bg-gray-300 text-gray-500"
-          }`}
-        >
-          {isAddingToCart ? (
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
-          ) : (
-            <>
-              <ShoppingCart size={16} className="mr-2" />
-              {stock > 0 ? "Add to Cart" : "Out of Stock"}
-            </>
-          )}
-        </button>
-      </div>
 
       {/* Product info */}
       <div className="p-4">
@@ -150,17 +116,21 @@ const ProductCard = ({ product, onAddToCart }) => {
               <Star
                 key={i}
                 size={14}
-                className={`${i < Math.floor(rating) ? "fill-yellow-400" : "fill-gray-200 dark:fill-gray-700"}`}
+                className={`${
+                  i < Math.floor(rating)
+                    ? "fill-yellow-400"
+                    : "fill-gray-200 dark:fill-gray-700"
+                }`}
               />
             ))}
           </div>
           <span className="ml-1 text-xs text-gray-500 dark:text-gray-400">
-            ({rating})
+            ({rating.toFixed(2)})
           </span>
         </div>
 
         {/* Price */}
-        <div className="flex items-center">
+        <div className="mb-2 flex items-center">
           {discount > 0 ? (
             <>
               <span className="text-lg font-bold text-gray-900 dark:text-white">
@@ -178,11 +148,13 @@ const ProductCard = ({ product, onAddToCart }) => {
         </div>
 
         {/* Stock */}
-        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-1 mb-3 text-xs text-gray-500 dark:text-gray-400">
           {stock > 0 ? (
             <div className="flex items-center">
               <span
-                className={`mr-1.5 h-2 w-2 rounded-full ${stock > 10 ? "bg-green-500" : "bg-amber-500"}`}
+                className={`mr-1.5 h-2 w-2 rounded-full ${
+                  stock > 10 ? "bg-green-500" : "bg-amber-500"
+                }`}
               ></span>
               {stock} in stock
             </div>
@@ -193,6 +165,26 @@ const ProductCard = ({ product, onAddToCart }) => {
             </div>
           )}
         </div>
+
+        {/* Static Add to Cart button inside card */}
+        <button
+          onClick={handleAddToCart}
+          disabled={stock === 0 || isAddingToCart}
+          className={`flex w-full items-center justify-center rounded-full px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 ${
+            stock > 0
+              ? "bg-indigo-600 text-white hover:bg-indigo-700"
+              : "cursor-not-allowed bg-gray-300 text-gray-500"
+          }`}
+        >
+          {isAddingToCart ? (
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+          ) : (
+            <>
+              <ShoppingCart size={16} className="mr-2" />
+              {stock > 0 ? "Add to Cart" : "Out of Stock"}
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
