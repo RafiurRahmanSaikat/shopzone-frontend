@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../ui/cards/CustomCard";
+import Spinner from "../common/Spinner";
 const FormInput = ({ label, name, type = "text", value, onChange, icon }) => {
   return (
     <div>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { NoData, TableFooter } from "../..";
 import useFetch from "../../../hooks/UseFetch";
 import { handleDeleteRequest } from "../../../utils/Actions";
+import Spinner from "../common/Spinner";
 
 const UserStatus = ({ isAuthenticated }) => (
   <span

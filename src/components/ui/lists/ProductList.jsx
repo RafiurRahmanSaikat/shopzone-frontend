@@ -3,6 +3,7 @@ import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import UseFetch from "../../../hooks/UseFetch";
 import { handleDeleteRequest } from "../../../utils/Actions";
+import Spinner from "../common/Spinner";
 
 export const ProductActions = ({ product, onEdit, onDelete }) => (
   <div className="flex space-x-2">
