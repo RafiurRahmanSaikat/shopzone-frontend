@@ -7,7 +7,6 @@ import Badge from "../common/Badge";
 import Container from "../common/Container";
 import Grid from "../common/Grid";
 import Heading from "../common/Heading";
-import Section from "../common/Section";
 import Text from "../common/Text";
 
 const FlashSaleSection = ({
@@ -64,40 +63,31 @@ const FlashSaleSection = ({
   }));
 
   return (
-    <Section
-      className={`overflow-hidden bg-gradient-to-tr from-zinc-700 to-zinc-900 ${className}`}
-      {...props}
-    >
-      {/* Background patterns */}
-      <div className='bg-[url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fillOpacity="0.05" fillRule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"%3E%3C/circle%3E%3Ccircle cx="13" cy="13" r="3"%3E%3C/circle%3E%3C/g%3E%3C/svg%3E")] absolute inset-0 opacity-20'></div>
-      <div className="absolute -top-20 -left-20 h-40 w-40 rounded-full bg-violet-500 opacity-20 blur-3xl"></div>
-      <div className="absolute -right-20 -bottom-20 h-60 w-60 rounded-full bg-violet-500 opacity-20 blur-3xl"></div>
-
+    <section className={`overflow-hidden py-10`}>
       <Container>
         <div className="mb-12 flex flex-col items-center space-y-6 text-center md:flex-row md:justify-between md:space-y-0">
           <div className="md:max-w-xl">
             <Badge
               variant="secondary"
               size="lg"
-              className="mb-4 bg-violet-600/20 text-violet-200"
+              className="mb-4 bg-zinc-700 text-zinc-200 dark:bg-violet-600/20 dark:text-violet-200"
             >
               <Zap className="mr-2 h-5 w-5 animate-pulse" />
               FLASH SALE
             </Badge>
 
             <Heading className="text-white">
-              <span className="animate-pulse text-yellow-300">
-                {discountPercentage}% OFF
-              </span>{" "}
+              <span className="animate-pulse bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text font-bold text-transparent transition-all duration-300 hover:from-indigo-600 hover:to-purple-700 dark:text-yellow-300">
+                {discountPercentage}% OFF {"  "}
+              </span>
               Today Only!
             </Heading>
-
-            <Text size="lg" className="mt-3 text-zinc-200">
+            <Text size="lg" className="mt-6 text-zinc-800 dark:text-zinc-300">
               {subtitle}
             </Text>
           </div>
 
-          <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
+          <div className="rounded-2xl bg-zinc-800 p-6 backdrop-blur-sm dark:bg-white/10">
             <div className="text-center">
               <Text size="lg" weight="bold" className="mb-2 text-white">
                 Ends In:
@@ -178,7 +168,7 @@ const FlashSaleSection = ({
           ))}
         </Grid>
       </Container>
-    </Section>
+    </section>
   );
 };
 

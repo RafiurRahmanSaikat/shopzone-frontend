@@ -4,7 +4,6 @@ import Badge from "../common/Badge";
 import Container from "../common/Container";
 import Grid from "../common/Grid";
 import Heading from "../common/Heading";
-import Section from "../common/Section";
 import Text from "../common/Text";
 
 const TrendingSection = ({
@@ -16,7 +15,7 @@ const TrendingSection = ({
   ...props
 }) => {
   return (
-    <Section background="white" className={className} {...props}>
+    <section className="py-10">
       <Container>
         <div className="mb-10 text-center">
           {badgeText && (
@@ -96,7 +95,7 @@ const TrendingSection = ({
           ))}
         </Grid>
       </Container>
-    </Section>
+    </section>
   );
 };
 

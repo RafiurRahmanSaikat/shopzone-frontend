@@ -52,8 +52,12 @@ const TestimonialsSection = ({
               {badgeText}
             </Badge>
           )}
-
-          <Heading>{title}</Heading>
+          <Heading>
+            What Our{" "}
+            <span className="text-violet-600 dark:text-violet-400">
+              Customers Say ..
+            </span>
+          </Heading>
 
           {subtitle && (
             <Text size="lg" muted className="mx-auto mt-4 max-w-2xl">

@@ -9,7 +9,10 @@ const ProductList = ({ products }) => {
   return (
     <div className="mx-auto my-10 w-fit">
       <div className="mb-10 text-center">
-        <Heading>All Products</Heading>
+        <Heading>
+          All{" "}
+          <span className="text-violet-600 dark:text-violet-400">Products</span>
+        </Heading>
       </div>
 
       <Grid className="w-[80vw]" cols={5} gap={5}>

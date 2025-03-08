@@ -3,7 +3,6 @@ import { useState } from "react";
 import Button from "../common/Button";
 import Container from "../common/Container";
 import Heading from "../common/Heading";
-import Section from "../common/Section";
 import Text from "../common/Text";
 
 const NewsletterSection = ({
@@ -35,7 +34,7 @@ const NewsletterSection = ({
   };
 
   return (
-    <Section className={`relative overflow-hidden ${className}`} {...props}>
+    <section className={`relative overflow-hidden py-10`}>
       {/* Background Patterns */}
       <div className="absolute -top-32 -left-32 h-64 w-64 rounded-full bg-indigo-500 opacity-20 blur-3xl"></div>
       <div className="absolute -right-16 -bottom-16 h-40 w-40 rounded-full bg-purple-500 opacity-20 blur-3xl"></div>
@@ -47,7 +46,12 @@ const NewsletterSection = ({
 
       <Container>
         <div className="text-center">
-          <Heading className="mb-6">{title}</Heading>
+          <Heading className="mb-6">
+            Join Our{" "}
+            <span className="text-violet-600 dark:text-violet-400">
+              Newsletter
+            </span>
+          </Heading>
           <Text size="xl" className="mx-auto mb-8 max-w-2xl">
             {subtitle}
           </Text>
@@ -70,7 +74,7 @@ const NewsletterSection = ({
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 rounded-full border-0 px-6 py-4 text-gray-900 placeholder-gray-500 shadow-md transition-all duration-300 focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
+                  className="flex-1 rounded-full border-0 px-6 py-4 text-gray-900 placeholder-zinc-700 ring-2 shadow-md transition-all duration-300 focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none dark:placeholder-zinc-200"
                   required
                 />
                 <Button
@@ -96,7 +100,7 @@ const NewsletterSection = ({
           </form>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 };
 

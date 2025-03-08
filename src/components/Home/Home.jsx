@@ -159,7 +159,7 @@ const HomePage = () => {
   const flashSaleProducts = getFlashSaleProducts();
   const featuredProducts = getFeaturedProducts();
   return (
-    <div className="">
+    <div className="bg-zinc-100 dark:bg-zinc-800">
       <Hero />
       <ProductList products={data.results} />
 
