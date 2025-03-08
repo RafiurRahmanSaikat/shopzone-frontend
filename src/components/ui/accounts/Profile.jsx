@@ -1,7 +1,6 @@
 import { Camera, Lock, Mail, MapPin, Phone, User } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Loading } from "../..";
 import AuthContext from "../../../context/AuthContext";
 import { handlePatchRequest, handlePostRequest } from "../../../utils/Actions";
 import uploadImage from "../../../utils/UploadImage";
@@ -147,7 +146,7 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

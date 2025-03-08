@@ -38,7 +38,7 @@ export function NewArrivalsSection({ products = [] }) {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <div
               key={product.id}
               className="group relative transform overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-105 dark:bg-zinc-800"

@@ -1,4 +1,4 @@
-import { Loading, TableFooter } from "@components";
+import { TableFooter } from "@components";
 import React, { useState } from "react";
 import UseFetch from "../../../hooks/UseFetch";
 
@@ -34,7 +34,7 @@ const MyOrderList = () => {
     error,
   } = UseFetch(`/orders/?page=${page}`);
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
   if (error) return <p className="text-center text-red-500">Error: {error}</p>;
   if (!ordersData || !ordersData.results)
     return <p className="text-center">No orders found.</p>;

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { FAQ, Hero, Loading, Stats } from "../../components";
+import { FAQ, Hero, Stats } from "../../components";
 import UseFetch from "../../hooks/UseFetch";
 import { handlePostRequest } from "../../utils/Actions";
+import Spinner from "../ui/common/Spinner";
 import Error from "../ui/errors/Error";
 import CategoriesSection from "../ui/sections/CategoriesSection";
 import FeaturesSection from "../ui/sections/FeaturesSection";
@@ -141,7 +142,7 @@ const HomePage = () => {
   };
 
   if (productsLoading || categoriesLoading) {
-    return <Loading />;
+    return <Spinner />;
   }
 
   if (productsError || categoriesError) {
@@ -156,7 +157,7 @@ const HomePage = () => {
   return (
     <div className="bg-zinc-100 dark:bg-zinc-800">
       <Hero />
-      <ProductList products={data.results} />
+      <ProductList products={data?.results} />
       {categoriesData?.results && (
         <CategoriesSection categories={categoriesData.results} />
       )}

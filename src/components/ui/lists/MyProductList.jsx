@@ -1,4 +1,4 @@
-import { Loading, ProductModal, TableFooter } from "@components";
+import { ProductModal, TableFooter } from "@components";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import UseFetch from "../../../hooks/UseFetch";
@@ -134,7 +134,7 @@ const MyProductList = () => {
     refetch();
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
   if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
 
   return (

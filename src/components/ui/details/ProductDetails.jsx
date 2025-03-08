@@ -1,4 +1,3 @@
-import { Loading } from "@components";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import UseFetch from "../../../hooks/UseFetch";
 import { handlePostRequest } from "../../../utils/Actions";
+import Spinner from "../common/Spinner";
 const Rating = ({ rating, size = "base" }) => {
   const sizeClasses = {
     sm: "text-sm",
@@ -239,7 +239,7 @@ const ProductDetails = () => {
     refetch,
   } = UseFetch(`/products/${id}`);
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
   if (error) return <div>Error: {error}</div>;
   if (!product) return <div>No product found</div>;
 

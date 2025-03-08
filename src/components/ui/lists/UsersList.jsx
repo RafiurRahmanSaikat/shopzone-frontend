@@ -1,6 +1,6 @@
 import { CheckCircle, Delete, MapPin, Phone, User } from "lucide-react";
 import React, { useState } from "react";
-import { Loading, NoData, TableFooter } from "../..";
+import { NoData, TableFooter } from "../..";
 import useFetch from "../../../hooks/UseFetch";
 import { handleDeleteRequest } from "../../../utils/Actions";
 
@@ -67,7 +67,7 @@ export default function UsersList() {
     refetch,
   } = useFetch(`/accounts/users/?page=${page}`);
   console.log(users);
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
   if (error)
     return (
       <div className="flex min-h-[400px] items-center justify-center text-red-500">

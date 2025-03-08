@@ -23,7 +23,6 @@ export { default as OrderList } from "./ui/lists/OrderList";
 export { default as ProductList } from "./ui/lists/ProductList";
 export { default as StoreList } from "./ui/lists/StoreList";
 export { default as UsersList } from "./ui/lists/UsersList";
-export { default as Loading } from "./ui/loadings/LoadingSpinner";
 export { default as ProductModal } from "./ui/modals/ProductModal";
 export { default as StoreModal } from "./ui/modals/StoreModal";
 export { default as DashboardHeader } from "./ui/navbars/DashboardHeader";

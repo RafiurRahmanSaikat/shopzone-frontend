@@ -1,4 +1,4 @@
-import { Loading, TableFooter } from "@components";
+import { TableFooter } from "@components";
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -88,7 +88,7 @@ const OrderList = () => {
     }
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
   if (error) return <p className="text-center text-red-500">Error: {error}</p>;
   if (!ordersData || !ordersData.results)
     return <p className="text-center">No orders found.</p>;

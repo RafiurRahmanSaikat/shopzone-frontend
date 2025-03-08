@@ -16,7 +16,7 @@ const ProductList = ({ products }) => {
       </div>
 
       <Grid className="w-[80vw]" cols={5} gap={5}>
-        {products.map((product, index) => (
+        {products?.map((product, index) => (
           <div
             key={product.id}
             className="group animate-fade-in relative overflow-hidden rounded-2xl bg-zinc-100 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:bg-zinc-800"

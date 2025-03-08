@@ -1,4 +1,4 @@
-import { Loading, StoreModal, TableFooter } from "@components";
+import { StoreModal, TableFooter } from "@components";
 
 import { Edit, MapPin, Plus, Tag, Trash2, User } from "lucide-react";
 import React, { useState } from "react";
@@ -48,7 +48,7 @@ const StoreList = () => {
     setPage(Math.max(1, newPage));
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
   if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
 
   return (

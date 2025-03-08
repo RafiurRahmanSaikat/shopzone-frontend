@@ -1,4 +1,4 @@
-import { Loading, NoData } from "@components";
+import { NoData } from "@components";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import UseFetch from "../../../hooks/UseFetch";
@@ -24,7 +24,7 @@ const ShoppingCart = () => {
     }
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <Spinner />;
 
   if (error) {
     return (
