@@ -29,5 +29,5 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Prevent tracking future changes to constants (but keep existing one)
-src/constants/index.js
+# src/constants/index.js
 .env
