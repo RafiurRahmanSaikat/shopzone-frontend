@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Loading } from "../..";
 import UseFetch from "../../../hooks/UseFetch";
 import { handlePostRequest } from "../../../utils/Actions";
 import ProductCard from "../cards/ProductCard";
 import Button from "../common/Button";
 import Heading from "../common/Heading";
-import Spinner from "../common/Spinner";
 import Text from "../common/Text";
 import ProductFilters from "./ProductFilters";
 import ProductListHeader from "./ProductListHeader";
@@ -213,7 +213,7 @@ const ProductsPage = () => {
             {/* Products Grid */}
             {loading && products.length === 0 ? (
               <div className="flex h-64 items-center justify-center">
-                <Spinner size="lg" variant="primary" />
+                <Loading />
               </div>
             ) : error ? (
               <div className="flex h-64 flex-col items-center justify-center text-center">
@@ -278,7 +278,7 @@ const ProductsPage = () => {
             {/* Loading indicator for load more */}
             {loading && products.length > 0 && (
               <div className="mt-8 flex justify-center">
-                <Spinner size="md" variant="primary" />
+                <Loading />
               </div>
             )}
           </div>

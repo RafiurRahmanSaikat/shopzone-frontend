@@ -8,6 +8,7 @@ import CategoriesSection from "../ui/sections/CategoriesSection";
 import FeaturesSection from "../ui/sections/FeaturesSection";
 import FlashSaleSection from "../ui/sections/FlashSaleSection";
 import FridayDealsSection from "../ui/sections/FridayDealsSection";
+import { NewArrivalsSection } from "../ui/sections/NewArrivalsSection";
 import NewsletterSection from "../ui/sections/NewsletterSection";
 import TestimonialsSection from "../ui/sections/TestimonialsSection";
 import TrendingSection from "../ui/sections/TrendingSection";
@@ -54,11 +55,6 @@ const HomePage = () => {
       maxPrice: "",
       category: "",
     });
-  };
-  const getFeaturedProducts = () => {
-    if (!productsData?.results) return [];
-    // For demo purposes, let's consider the first 8 products as featured
-    return productsData.results.slice(0, 8);
   };
 
   const handleAddToCart = async (productId, quantity = 1) => {
@@ -157,11 +153,14 @@ const HomePage = () => {
   const fridayDeals = getFridayDeals();
   const trendingProducts = getTrendingProducts();
   const flashSaleProducts = getFlashSaleProducts();
-  const featuredProducts = getFeaturedProducts();
   return (
     <div className="bg-zinc-100 dark:bg-zinc-800">
       <Hero />
       <ProductList products={data.results} />
+      {categoriesData?.results && (
+        <CategoriesSection categories={categoriesData.results} />
+      )}
+      {newArrivals.length > 0 && <NewArrivalsSection products={newArrivals} />}
 
       {fridayDeals.length > 0 && (
         <FridayDealsSection featuredProducts={fridayDeals} />
@@ -172,14 +171,7 @@ const HomePage = () => {
       {trendingProducts.length > 0 && (
         <TrendingSection products={trendingProducts} />
       )}
-      {categoriesData?.results && (
-        <CategoriesSection categories={categoriesData.results} />
-      )}
 
-      {/* {newArrivals.length > 0 && <NewArrivalsSection products={newArrivals} />} */}
-      {/* {featuredProducts.length > 0 && (
-        <FeaturedProductsSection products={featuredProducts} />
-      )} */}
       <FeaturesSection />
       <NewsletterSection />
       <TestimonialsSection />
