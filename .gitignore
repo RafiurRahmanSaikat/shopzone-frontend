@@ -1,26 +1,33 @@
-# Logs
-logs
-*.log
+# Node Modules
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Vite Build
+dist/
+.vite/
+
+# Environment Variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.example
+
+# Editor/OS-specific files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Prevent tracking future changes to constants (but keep existing one)
+src/constants/index.js
 .env
-*.env
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
