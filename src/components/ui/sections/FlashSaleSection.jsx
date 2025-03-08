@@ -1,6 +1,4 @@
-"use client";
-
-import { Heart, ShoppingCart, Zap } from "lucide-react";
+import { ShoppingCart, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Badge from "../common/Badge";
@@ -129,10 +127,13 @@ const FlashSaleSection = ({
               className="group animate-fade-in transform transition-all duration-300 hover:scale-105"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="relative overflow-hidden rounded-t-xl bg-white dark:bg-zinc-800">
-                <span className="absolute top-3 left-0 z-10 animate-pulse rounded-r-lg bg-red-500 px-2 py-1 text-sm font-bold text-white shadow-md">
-                  -{product.flashSaleDiscount}%
-                </span>
+              {/* Product Image Section */}
+              <div className="relative overflow-hidden rounded-t-xl bg-white shadow-md dark:bg-zinc-900">
+                {product.flashSaleDiscount > 0 && (
+                  <span className="absolute top-3 left-0 z-10 animate-pulse rounded-r-lg bg-red-500 px-2 py-1 text-xs font-semibold text-white shadow-md">
+                    -{product.flashSaleDiscount}%
+                  </span>
+                )}
                 <Link to={`/products/${product.id}`} className="block">
                   <img
                     src={product.image || "/placeholder.svg"}
@@ -141,25 +142,35 @@ const FlashSaleSection = ({
                   />
                 </Link>
 
-                <div className="absolute right-0 -bottom-10 left-0 flex justify-center space-x-2 bg-white/30 p-2 backdrop-blur-sm transition-all group-hover:bottom-0 dark:bg-zinc-800/50">
+                {/* Quick Action Buttons */}
+                <div className="absolute right-0 -bottom-10 left-0 flex justify-center space-x-2 bg-white/40 p-2 backdrop-blur-md transition-all group-hover:bottom-0 dark:bg-zinc-800/50">
                   <button className="rounded-full bg-white p-2 text-zinc-800 shadow transition-transform hover:scale-110 dark:bg-zinc-700 dark:text-zinc-200">
                     <ShoppingCart className="h-4 w-4" />
-                  </button>
-                  <button className="rounded-full bg-white p-2 text-violet-600 shadow transition-transform hover:scale-110 dark:bg-zinc-700 dark:text-violet-400">
-                    <Heart className="h-4 w-4" />
                   </button>
                 </div>
               </div>
 
-              <div className="rounded-b-sm bg-white/10 p-4 backdrop-blur-2xl dark:bg-zinc-800/10">
-                <Text size="sm" weight="medium" className="truncate text-white">
+              {/* Product Details */}
+              <div className="rounded-b-xl bg-white p-4 shadow-md dark:bg-zinc-900 dark:text-zinc-200">
+                <Text
+                  size="sm"
+                  weight="medium"
+                  className="truncate text-zinc-800 dark:text-zinc-100"
+                >
                   {product.name}
                 </Text>
                 <div className="mt-1 flex items-center">
-                  <Text size="lg" weight="bold" className="text-yellow-300">
+                  <Text
+                    size="lg"
+                    weight="bold"
+                    className="text-yellow-500 dark:text-yellow-400"
+                  >
                     ${product.flashSalePrice}
                   </Text>
-                  <Text size="sm" className="ml-2 text-zinc-300 line-through">
+                  <Text
+                    size="sm"
+                    className="ml-2 text-zinc-500 line-through dark:text-zinc-400"
+                  >
                     ${product.price}
                   </Text>
                 </div>

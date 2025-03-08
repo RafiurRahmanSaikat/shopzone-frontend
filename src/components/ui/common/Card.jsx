@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 // Card variants
 const variants = {
-  default: "bg-white dark:bg-zinc-800 shadow-md",
+  default: "bg-white dark:bg-zinc-900 shadow-md",
   elevated: "bg-white dark:bg-zinc-800 shadow-lg",
   outlined:
     "bg-white dark:bg-zinc-800 border border-gray-200 dark:border-gray-700",

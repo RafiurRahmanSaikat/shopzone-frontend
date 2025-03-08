@@ -1,8 +1,16 @@
+import Heading from "../common/Heading";
+
 export default function Stats() {
   return (
     <>
       {/* Features */}
       <div className="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <Heading className="mb-4 text-white">
+          <span className="animate-pulse bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text font-bold text-transparent transition-all duration-300 hover:from-indigo-600 hover:to-purple-700">
+            Numbers Speaks ...
+          </span>
+        </Heading>
+
         {/* Grid */}
         <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">

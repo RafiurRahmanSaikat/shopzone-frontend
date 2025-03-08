@@ -47,11 +47,7 @@ const TestimonialsSection = ({
     <section>
       <Container>
         <div className="mb-12 text-center">
-          {badgeText && (
-            <Badge variant="primary" className="mb-4">
-              {badgeText}
-            </Badge>
-          )}
+          {badgeText && <Badge className="mb-4">{badgeText}</Badge>}
           <Heading>
             What Our{" "}
             <span className="text-violet-600 dark:text-violet-400">

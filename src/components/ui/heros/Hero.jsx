@@ -52,10 +52,9 @@ const Hero = () => {
               </Link>
               <Link
                 to="products/?categories"
-                className="group relative overflow-hidden rounded-full bg-white px-8 py-3 text-center text-sm font-medium text-gray-900 shadow-lg transition-all duration-300 hover:shadow-gray-300/50 dark:bg-zinc-800 dark:text-white dark:hover:shadow-gray-900/50"
+                className="group relative overflow-hidden rounded-full bg-white px-8 py-3 text-center text-sm font-medium text-gray-900 shadow-lg transition-all duration-300 hover:shadow-gray-300/50 dark:bg-zinc-700 dark:text-white dark:hover:shadow-gray-900/50"
               >
                 <span className="relative z-10">Browse Categories</span>
-                <span className="absolute inset-0 -z-10 bg-gray-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-zinc-700"></span>
               </Link>
             </div>
           </div>

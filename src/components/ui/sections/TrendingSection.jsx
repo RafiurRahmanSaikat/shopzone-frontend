@@ -8,7 +8,6 @@ import Text from "../common/Text";
 
 const TrendingSection = ({
   products = [],
-  title = "Trending Items",
   subtitle = "Discover our best-reviewed products loved by customers",
   badgeText = "Top Rated Products",
   className = "",
@@ -20,7 +19,7 @@ const TrendingSection = ({
         <div className="mb-10 text-center">
           {badgeText && (
             <Badge
-              variant="primary"
+              variant="success"
               className="mb-4"
               icon={<TrendingUp className="mr-1 h-4 w-4" />}
             >
@@ -28,13 +27,18 @@ const TrendingSection = ({
             </Badge>
           )}
 
-          <Heading>{title}</Heading>
-
-          {subtitle && (
-            <Text size="lg" muted className="mx-auto mt-3 max-w-2xl">
-              {subtitle}
-            </Text>
-          )}
+          <Heading className="text-white">
+            <span className="animate-pulse bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text font-bold text-transparent transition-all duration-300 hover:from-indigo-600 hover:to-purple-700">
+              &quot; Trending &quot; ,{"  "}
+            </span>
+            Items
+          </Heading>
+          <Text
+            size="lg"
+            className="mx-auto mt-3 max-w-2xl text-zinc-800 dark:text-zinc-300"
+          >
+            {subtitle}
+          </Text>
         </div>
 
         <Grid cols={2} gap={6}>

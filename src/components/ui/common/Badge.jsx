@@ -25,7 +25,7 @@ const sizes = {
 
 const Badge = ({
   children,
-  variant = "primary",
+  variant = "success",
   size = "md",
   className = "",
   icon,

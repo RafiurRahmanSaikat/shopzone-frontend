@@ -36,8 +36,8 @@ const NewsletterSection = ({
   return (
     <section className={`relative overflow-hidden py-10`}>
       {/* Background Patterns */}
-      <div className="absolute -top-32 -left-32 h-64 w-64 rounded-full bg-indigo-500 opacity-20 blur-3xl"></div>
-      <div className="absolute -right-16 -bottom-16 h-40 w-40 rounded-full bg-purple-500 opacity-20 blur-3xl"></div>
+      {/* <div className="absolute -top-32 -left-32 h-64 w-64 rounded-full bg-indigo-500 opacity-20 blur-3xl"></div>
+      <div className="absolute -right-16 -bottom-16 h-40 w-40 rounded-full bg-purple-500 opacity-20 blur-3xl"></div> */}
 
       {/* Decorative circles */}
       <div className="absolute top-12 right-12 h-8 w-8 rounded-full bg-black opacity-10 dark:bg-white"></div>
