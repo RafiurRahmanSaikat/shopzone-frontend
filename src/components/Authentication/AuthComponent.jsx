@@ -13,7 +13,7 @@ export default function AuthComponent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-200 p-4 dark:bg-zinc-800">
       <div className="w-full max-w-7xl overflow-hidden rounded-3xl">
         <div className="relative flex h-full flex-col md:h-auto md:flex-row">
           <div
