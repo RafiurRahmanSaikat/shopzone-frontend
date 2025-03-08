@@ -1,4 +1,5 @@
 import { Flame } from "lucide-react";
+import { Link } from "react-router-dom";
 import Card from "../common/Card";
 import Container from "../common/Container";
 import Grid from "../common/Grid";
@@ -44,7 +45,8 @@ const FridayDealsSection = ({
             <Card className="animate-float bg-white/10 p-6 backdrop-blur-sm">
               <Grid cols={2} gap={5}>
                 {featuredProducts.map((product) => (
-                  <div
+                  <Link
+                    to={`/products/${product.id}`}
                     key={product.id}
                     className="group relative overflow-hidden rounded-lg bg-white/10 shadow-md backdrop-blur-2xl"
                   >
@@ -82,7 +84,7 @@ const FridayDealsSection = ({
                         </Text>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </Grid>
             </Card>
