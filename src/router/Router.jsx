@@ -17,7 +17,7 @@ import {
   UsersList,
 } from "@components";
 import { createBrowserRouter } from "react-router-dom";
-import EnhancedProductsPage from "../components/ui/product/ProductsPage";
+import ProductsPage from "../components/ui/product/ProductsPage";
 
 const Router = createBrowserRouter([
   {
@@ -29,7 +29,7 @@ const Router = createBrowserRouter([
       { path: "login", element: <AuthComponent /> },
       { path: "signup", element: <AuthComponent /> },
       { path: "products/:id", element: <ProductDetails /> },
-      { path: "products", element: <EnhancedProductsPage /> },
+      { path: "products", element: <ProductsPage /> },
     ],
   },
   {

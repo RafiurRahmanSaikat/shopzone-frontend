@@ -10,6 +10,9 @@ import Spinner from "../common/Spinner";
 import Text from "../common/Text";
 import ProductFilters from "./ProductFilters";
 import ProductListHeader from "./ProductListHeader";
+import ProductsPageSkeleton, {
+  ProductGridSkeleton,
+} from "./ProductsPageSkeleton";
 
 const ProductsPage = () => {
   const location = useLocation();
@@ -26,6 +29,8 @@ const ProductsPage = () => {
   const [allLoaded, setAllLoaded] = useState(false);
   const [categories, setCategories] = useState([]);
   const [activeFilters, setActiveFilters] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [filteringProducts, setFilteringProducts] = useState(false);
 
   // Get categories
   const { data: catData } = UseFetch("/categories/");
@@ -92,6 +97,9 @@ const ProductsPage = () => {
   // Reset page when filters change
   useEffect(() => {
     setPage(1);
+    if (products.length > 0) {
+      setFilteringProducts(true);
+    }
   }, [searchFilters]);
 
   // Update products when data changes
@@ -99,6 +107,8 @@ const ProductsPage = () => {
     if (data?.results) {
       if (page === 1) {
         setProducts(data.results);
+        setLoadingMore(false);
+        setFilteringProducts(false);
       } else {
         setProducts((prev) => {
           const allProducts = [...prev, ...data.results];
@@ -107,6 +117,7 @@ const ProductsPage = () => {
               allProducts.map((product) => [product.id, product]),
             ).values(),
           );
+          setLoadingMore(false);
           return uniqueProducts;
         });
       }
@@ -115,6 +126,9 @@ const ProductsPage = () => {
   }, [data, page]);
 
   const handleApplyFilters = () => {
+    // Show filtering skeleton
+    setFilteringProducts(true);
+
     // Update URL with search params
     const params = new URLSearchParams();
     if (searchFilters.search) params.append("search", searchFilters.search);
@@ -143,6 +157,7 @@ const ProductsPage = () => {
   };
 
   const handleClearFilters = () => {
+    setFilteringProducts(true);
     setSearchFilters({
       search: "",
       minPrice: "",
@@ -168,6 +183,7 @@ const ProductsPage = () => {
 
   const loadMore = () => {
     if (data?.next) {
+      setLoadingMore(true);
       setPage((prev) => prev + 1);
     }
   };
@@ -185,6 +201,11 @@ const ProductsPage = () => {
       toast.error("Please login to add items to cart");
     }
   };
+
+  // Show full skeleton on initial load
+  if (loading && products.length === 0) {
+    return <ProductsPageSkeleton />;
+  }
 
   return (
     <div className="min-h-screen pt-24">
@@ -211,11 +232,7 @@ const ProductsPage = () => {
             />
 
             {/* Products Grid */}
-            {loading && products.length === 0 ? (
-              <div className="relative flex h-64 items-center justify-center">
-                <Spinner size="xl" variant="primary" />
-              </div>
-            ) : error ? (
+            {error ? (
               <div className="flex h-64 flex-col items-center justify-center text-center">
                 <Heading as="h2" size="h4" className="text-red-600">
                   Error Loading Products
@@ -227,7 +244,9 @@ const ProductsPage = () => {
                   Please check your connection and try again.
                 </Text>
               </div>
-            ) : products.length === 0 ? (
+            ) : filteringProducts ? (
+              <ProductGridSkeleton count={8} />
+            ) : products.length === 0 && !loading ? (
               <div className="flex h-64 flex-col items-center justify-center text-center">
                 <Heading as="h2" size="h4">
                   No Products Found
@@ -264,8 +283,10 @@ const ProductsPage = () => {
                   ))}
                 </div>
 
+                {/* Load More Skeletons */}
+                {loadingMore && <Spinner />}
                 {/* Load More Button */}
-                {!allLoaded && !loading && (
+                {!allLoaded && (
                   <div className="mt-8 flex justify-center">
                     <Button variant="secondary" size="md" onClick={loadMore}>
                       Load More Products
@@ -273,13 +294,6 @@ const ProductsPage = () => {
                   </div>
                 )}
               </>
-            )}
-
-            {/* Loading indicator for load more */}
-            {loading && products.length > 0 && (
-              <div className="relative">
-                <Spinner />
-              </div>
             )}
           </div>
         </div>

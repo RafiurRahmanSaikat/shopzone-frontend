@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import UseFetch from "../../../hooks/UseFetch";
 import { handlePostRequest } from "../../../utils/Actions";
-import Spinner from "../common/Spinner";
+
+// Rating component remains unchanged
 const Rating = ({ rating, size = "base" }) => {
   const sizeClasses = {
     sm: "text-sm",
@@ -33,6 +34,61 @@ const Rating = ({ rating, size = "base" }) => {
     </div>
   );
 };
+
+// Skeleton components for loading state
+const SkeletonBox = ({ className }) => (
+  <div
+    className={`animate-pulse rounded bg-gray-300 dark:bg-gray-700 ${className}`}
+  ></div>
+);
+
+const ProductDetailsSkeleton = () => (
+  <section className="relative z-10 overflow-hidden bg-white py-14 text-zinc-900 md:py-24 dark:bg-zinc-900 dark:text-white">
+    <div className="container mx-auto px-4">
+      <div className="flex flex-col gap-6 lg:flex-row">
+        {/* Image skeleton */}
+        <div className="w-full lg:w-1/2">
+          <SkeletonBox className="aspect-square w-full rounded-2xl" />
+        </div>
+
+        {/* Content skeleton */}
+        <div className="w-full lg:w-1/2">
+          <div className="mb-6 lg:mb-12">
+            <SkeletonBox className="mb-4 h-10 w-3/4" />
+            <SkeletonBox className="my-4 h-24 w-full" />
+            <div className="flex items-center gap-4">
+              <SkeletonBox className="h-8 w-24" />
+              <SkeletonBox className="h-6 w-40" />
+            </div>
+          </div>
+          <div className="my-7 flex w-full flex-col gap-3">
+            <SkeletonBox className="h-60 w-full rounded-lg" />
+          </div>
+        </div>
+      </div>
+
+      {/* Reviews Section Skeleton */}
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <SkeletonBox className="h-80 rounded-lg" />
+        <div className="rounded-lg bg-gray-100 p-6 dark:bg-zinc-800">
+          <SkeletonBox className="mb-4 h-8 w-48" />
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="border-t py-4 dark:border-slate-700">
+              <div className="flex items-start justify-between">
+                <div>
+                  <SkeletonBox className="mb-2 h-6 w-32" />
+                  <SkeletonBox className="h-4 w-24" />
+                </div>
+                <SkeletonBox className="h-4 w-32" />
+              </div>
+              <SkeletonBox className="mt-2 h-16 w-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const RecommendationSummary = ({ reviews, product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -144,7 +200,6 @@ const ReviewForm = ({ productId, refetch }) => {
       }
       setRating(0);
       setComment("");
-      // refetch();
     } catch (error) {
       console.error("Error submitting review:", error);
       toast.error("Something Went Wrong");
@@ -221,9 +276,15 @@ const ProductReviews = ({ product, refetch }) => (
         {/* Right Side: Reviews List */}
         <div className="rounded-lg bg-gray-100 p-6 dark:bg-zinc-800">
           <h3 className="mb-4 text-2xl font-medium">Customer Reviews</h3>
-          {product.reviews.map((review) => (
-            <ReviewItem key={review.id} review={review} />
-          ))}
+          {product.reviews.length > 0 ? (
+            product.reviews.map((review) => (
+              <ReviewItem key={review.id} review={review} />
+            ))
+          ) : (
+            <p className="text-center italic opacity-70">
+              No reviews yet. Be the first to review!
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -239,9 +300,19 @@ const ProductDetails = () => {
     refetch,
   } = UseFetch(`/products/${id}`);
 
-  if (loading) return <Spinner />;
-  if (error) return <div>Error: {error}</div>;
-  if (!product) return <div>No product found</div>;
+  if (loading) return <ProductDetailsSkeleton />;
+  if (error)
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        Error: {error}
+      </div>
+    );
+  if (!product)
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        No product found
+      </div>
+    );
 
   return (
     <section className="relative z-10 overflow-hidden bg-white py-14 text-zinc-900 md:py-24 dark:bg-zinc-900 dark:text-white">
@@ -251,7 +322,7 @@ const ProductDetails = () => {
             <img
               src={product.image || "/placeholder.jpg"}
               alt={product.name}
-              className="h-fit w-full rounded-2xl object-cover"
+              className="max-h-[65vh] w-full rounded-2xl object-contain"
             />
           </div>
           <div className="w-full lg:w-1/2">

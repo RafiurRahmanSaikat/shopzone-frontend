@@ -5,7 +5,7 @@ import Grid from "../ui/common/Grid";
 import Heading from "../ui/common/Heading";
 import Text from "../ui/common/Text";
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, loading }) => {
   return (
     <div className="mx-auto my-10 w-fit">
       <div className="mb-10 text-center">

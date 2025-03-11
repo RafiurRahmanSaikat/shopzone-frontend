@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { FAQ, Hero, Stats } from "../../components";
 import UseFetch from "../../hooks/UseFetch";
 import { handlePostRequest } from "../../utils/Actions";
-import Spinner from "../ui/common/Spinner";
 import Error from "../ui/errors/Error";
 import CategoriesSection from "../ui/sections/CategoriesSection";
 import FeaturesSection from "../ui/sections/FeaturesSection";
@@ -14,6 +13,7 @@ import NewsletterSection from "../ui/sections/NewsletterSection";
 import TestimonialsSection from "../ui/sections/TestimonialsSection";
 import TrendingSection from "../ui/sections/TrendingSection";
 import ProductList from "./ProductList";
+import ProductListSkeleton from "./ProductListSkeleton";
 
 const HomePage = () => {
   const [searchFilters, setSearchFilters] = useState({
@@ -40,7 +40,7 @@ const HomePage = () => {
   const url = `/products/?${params.toString()}`;
 
   const { data, loading, error } = UseFetch(url);
-  console.log(data);
+
   useEffect(() => {
     setPage(1);
   }, [searchFilters]);
@@ -89,16 +89,12 @@ const HomePage = () => {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-    // Filter products created within the last week
-    // Using the most recent review's created_at as a proxy for product creation date
-    // if the product itself doesn't have a created_at field
     return productsData.results
       .filter((product) => {
         if (product.created_at) {
           const createdDate = new Date(product.created_at);
           return createdDate >= oneWeekAgo;
         } else if (product.reviews && product.reviews.length > 0) {
-          // Sort reviews by created_at date (newest first)
           const sortedReviews = [...product.reviews].sort(
             (a, b) => new Date(b.created_at) - new Date(a.created_at),
           );
@@ -107,7 +103,7 @@ const HomePage = () => {
         }
         return false;
       })
-      .slice(0, 4); // Limit to 4 products
+      .slice(0, 4);
   };
 
   const getFridayDeals = () => {
@@ -115,35 +111,29 @@ const HomePage = () => {
 
     return productsData.results
       .filter((product) => Number.parseFloat(product.price) > 500)
-      .slice(0, 4); // Limit to 4 products
+      .slice(0, 4);
   };
 
   const getTrendingProducts = () => {
     if (!productsData?.results) return [];
 
-    // Sort by rating (highest first)
     return [...productsData.results]
       .sort((a, b) => b.rating - a.rating)
-      .slice(0, 4); // Limit to 4 products
+      .slice(0, 4);
   };
 
   const getFlashSaleProducts = () => {
     if (!productsData?.results) return [];
 
-    // For demo purposes, let's add flash sale properties to random 6 products
     return productsData.results
-      .sort(() => 0.5 - Math.random()) // Shuffle array
+      .sort(() => 0.5 - Math.random())
       .slice(0, 6)
       .map((product) => ({
         ...product,
-        flashSalePrice: (Number.parseFloat(product.price) * 0.6).toFixed(2), // 40% off for flash sale
+        flashSalePrice: (Number.parseFloat(product.price) * 0.6).toFixed(2),
         flashSaleDiscount: 40,
       }));
   };
-
-  if (productsLoading || categoriesLoading) {
-    return <Spinner />;
-  }
 
   if (productsError || categoriesError) {
     return <Error />;
@@ -154,23 +144,65 @@ const HomePage = () => {
   const fridayDeals = getFridayDeals();
   const trendingProducts = getTrendingProducts();
   const flashSaleProducts = getFlashSaleProducts();
+
   return (
     <div className="bg-zinc-100 dark:bg-zinc-800">
       <Hero />
-      <ProductList products={data?.results} />
-      {categoriesData?.results && (
-        <CategoriesSection categories={categoriesData.results} />
-      )}
-      {newArrivals.length > 0 && <NewArrivalsSection products={newArrivals} />}
 
-      {fridayDeals.length > 0 && (
-        <FridayDealsSection featuredProducts={fridayDeals} />
+      {/* Show skeleton while loading products */}
+      {loading ? (
+        <ProductListSkeleton />
+      ) : (
+        <ProductList loading={loading} products={data?.results} />
       )}
-      {flashSaleProducts.length > 0 && (
-        <FlashSaleSection products={flashSaleProducts} />
+
+      {/* Show skeleton or actual categories */}
+      {categoriesLoading ? (
+        <div className="mx-auto my-10 w-[80vw] animate-pulse">
+          <div className="mx-auto mb-6 h-10 w-48 rounded-lg bg-zinc-300 dark:bg-zinc-600"></div>
+          <div className="grid grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-40 rounded-lg bg-zinc-300 dark:bg-zinc-600"
+              ></div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        categoriesData?.results && (
+          <CategoriesSection categories={categoriesData.results} />
+        )
       )}
-      {trendingProducts.length > 0 && (
-        <TrendingSection products={trendingProducts} />
+
+      {/* Conditionally render sections with skeletons when loading */}
+      {productsLoading ? (
+        <div className="mx-auto my-10 w-[80vw] animate-pulse">
+          <div className="mx-auto mb-6 h-10 w-48 rounded-lg bg-zinc-300 dark:bg-zinc-600"></div>
+          <div className="grid grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-64 rounded-lg bg-zinc-300 dark:bg-zinc-600"
+              ></div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <>
+          {newArrivals.length > 0 && (
+            <NewArrivalsSection products={newArrivals} />
+          )}
+          {fridayDeals.length > 0 && (
+            <FridayDealsSection featuredProducts={fridayDeals} />
+          )}
+          {flashSaleProducts.length > 0 && (
+            <FlashSaleSection products={flashSaleProducts} />
+          )}
+          {trendingProducts.length > 0 && (
+            <TrendingSection products={trendingProducts} />
+          )}
+        </>
       )}
 
       <FeaturesSection />
