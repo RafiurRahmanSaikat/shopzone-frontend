@@ -1,10 +1,6 @@
 import { ArrowUpRight, Star, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
-import Badge from "../common/Badge";
-import Container from "../common/Container";
-import Grid from "../common/Grid";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import { Badge, Container, Grid, Heading, Text } from "../../../components";
 
 const TrendingSection = ({
   products = [],

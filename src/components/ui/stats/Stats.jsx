@@ -1,4 +1,4 @@
-import Heading from "../common/Heading";
+import Heading from "../Heading";
 
 export default function Stats() {
   return (

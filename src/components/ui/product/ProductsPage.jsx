@@ -4,10 +4,11 @@ import { toast } from "react-toastify";
 import UseFetch from "../../../hooks/UseFetch";
 import { handlePostRequest } from "../../../utils/Actions";
 import ProductCard from "../cards/ProductCard";
-import Button from "../common/Button";
-import Heading from "../common/Heading";
-import Spinner from "../common/Spinner";
-import Text from "../common/Text";
+
+import Button from "../Button";
+import Heading from "../Heading";
+import Spinner from "../Spinner";
+import Text from "../Text";
 import ProductFilters from "./ProductFilters";
 import ProductListHeader from "./ProductListHeader";
 import ProductsPageSkeleton, {

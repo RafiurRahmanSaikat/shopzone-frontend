@@ -1,9 +1,6 @@
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { useState } from "react";
-import Button from "../common/Button";
-import Container from "../common/Container";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import { Button, Container, Heading, Text } from "../../../components";
 
 const NewsletterSection = ({
   title = "Join Our Newsletter",

@@ -1,8 +1,8 @@
 import { Filter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Badge from "../common/Badge";
-import Button from "../common/Button";
+import Badge from "../Badge";
+import Button from "../Button";
 import FilterSidebar from "./FilterSidebar";
 
 const ProductFilters = ({

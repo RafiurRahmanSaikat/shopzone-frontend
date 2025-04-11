@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import UseFetch from "../../../hooks/UseFetch";
 import { handlePostRequest } from "../../../utils/Actions";
+import Button from "../Button";
 
 // Rating component remains unchanged
 const Rating = ({ rating, size = "base" }) => {
@@ -161,12 +162,15 @@ const RecommendationSummary = ({ reviews, product }) => {
             }
             className="w-20 rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-zinc-700"
           />
-          <button
+          <Button
+            variant="primary"
+            size="md"
             onClick={() => handleAddToCart(product.id, quantity)}
-            className="flex-1 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
+            // className="flex-1 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
           >
+            {" "}
             Add to Cart
-          </button>
+          </Button>
         </div>
       </div>
     </div>

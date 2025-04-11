@@ -1,7 +1,7 @@
 import { TableFooter } from "@components";
 import React, { useState } from "react";
 import UseFetch from "../../../hooks/UseFetch";
-import Spinner from "../common/Spinner";
+import Spinner from "../Spinner";
 
 const StatusDropdown = ({ order }) => {
   const statusColors = {

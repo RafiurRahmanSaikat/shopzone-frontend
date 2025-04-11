@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import Container from "../common/Container";
-import Grid from "../common/Grid";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import { Container, Grid, Heading, Text } from "../../../components";
 
 // Default category images if not provided by API
 const categoryImages = {
@@ -85,7 +82,7 @@ const CategoriesSection = ({
                 to={`/products/?categories=${category.id}`}
                 className="group relative overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:border dark:border-zinc-700 dark:bg-zinc-800"
               >
-                <div
+                {/* <div
                   className={`h-40 overflow-hidden bg-gradient-to-br ${categoryInfo.gradient}`}
                 >
                   <div className="absolute inset-0 bg-black opacity-10 transition-opacity group-hover:opacity-20"></div>
@@ -94,7 +91,7 @@ const CategoriesSection = ({
                     alt={category.name}
                     className="animate-float mx-auto mt-8 h-24 w-24 transform transition-transform group-hover:scale-110"
                   />
-                </div>
+                </div> */}
                 <div className="p-4 text-center">
                   <Text
                     weight="semibold"

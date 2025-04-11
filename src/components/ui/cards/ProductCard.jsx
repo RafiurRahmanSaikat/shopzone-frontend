@@ -1,6 +1,7 @@
-import { ShoppingCart, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "../Button";
 
 const ProductCard = ({ product, onAddToCart }) => {
   const { id, name, price, image, rating, stock, categories } = product;
@@ -167,7 +168,15 @@ const ProductCard = ({ product, onAddToCart }) => {
         </div>
 
         {/* Static Add to Cart button inside card */}
-        <button
+        <Button
+          disabled={stock === 0 || isAddingToCart}
+          variant="primary"
+          onClick={handleAddToCart}
+          className={`w-full`}
+        >
+          {stock > 0 ? "Add to Cart" : "Out of Stock"}
+        </Button>
+        {/* <button
           onClick={handleAddToCart}
           disabled={stock === 0 || isAddingToCart}
           className={`flex w-full items-center justify-center rounded-full px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 ${
@@ -184,7 +193,7 @@ const ProductCard = ({ product, onAddToCart }) => {
               {stock > 0 ? "Add to Cart" : "Out of Stock"}
             </>
           )}
-        </button>
+        </button> */}
       </div>
     </div>
   );

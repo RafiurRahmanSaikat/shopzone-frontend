@@ -1,6 +1,5 @@
 import React from "react";
-import Grid from "../ui/common/Grid";
-import Heading from "../ui/common/Heading";
+import { Grid, Heading } from "../ui";
 
 const ProductListSkeleton = () => {
   // Create an array of 10 items for the skeleton

@@ -1,9 +1,7 @@
 import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import Grid from "../ui/common/Grid";
-import Heading from "../ui/common/Heading";
-import Text from "../ui/common/Text";
+import { Grid, Heading, Text } from "../ui";
 
 const ProductList = ({ products, loading }) => {
   return (

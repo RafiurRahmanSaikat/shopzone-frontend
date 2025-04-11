@@ -4,7 +4,7 @@ import { Edit, MapPin, Plus, Tag, Trash2, User } from "lucide-react";
 import React, { useState } from "react";
 import UseFetch from "../../../hooks/UseFetch";
 import { handleDeleteRequest } from "../../../utils/Actions";
-import Spinner from "../common/Spinner";
+import Spinner from "../Spinner";
 
 const StoreList = () => {
   const [isModalOpen, setModalOpen] = useState(false);

@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import UseFetch from "../../../hooks/UseFetch";
 import { handlePostRequest } from "../../../utils/Actions";
-import Spinner from "../common/Spinner";
+
 import PaymentForm from "../forms/PaymentForm";
+import Spinner from "../Spinner";
 import CartItem from "./CartItem";
 import OrderSummary from "./OrderSummary";
 

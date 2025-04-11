@@ -1,9 +1,8 @@
 import { CheckCircle, Delete, MapPin, Phone, User } from "lucide-react";
 import React, { useState } from "react";
-import { NoData, TableFooter } from "../..";
+import { NoData, Spinner, TableFooter } from "../..";
 import useFetch from "../../../hooks/UseFetch";
 import { handleDeleteRequest } from "../../../utils/Actions";
-import Spinner from "../common/Spinner";
 
 const UserStatus = ({ isAuthenticated }) => (
   <span

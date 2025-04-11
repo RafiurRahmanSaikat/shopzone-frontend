@@ -1,8 +1,6 @@
 import { ArrowRight, Heart, ShoppingCart, Sparkles, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import Button from "../common/Button";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import { Button, Heading, Text } from "../../../components";
 
 export function NewArrivalsSection({ products = [] }) {
   return (

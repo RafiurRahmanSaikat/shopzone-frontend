@@ -2,7 +2,7 @@ import { Eye, EyeOff, User2Icon } from "lucide-react";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-import Badge from "../ui/common/Badge";
+import Badge from "../ui/Badge";
 
 // Define the available credentials
 const credentialsOptions = [

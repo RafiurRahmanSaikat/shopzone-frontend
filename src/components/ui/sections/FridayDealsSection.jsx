@@ -1,10 +1,6 @@
 import { Flame } from "lucide-react";
 import { Link } from "react-router-dom";
-import Card from "../common/Card";
-import Container from "../common/Container";
-import Grid from "../common/Grid";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import { Card, Container, Grid, Heading, Text } from "../../../components";
 
 const FridayDealsSection = ({
   featuredProducts = [],

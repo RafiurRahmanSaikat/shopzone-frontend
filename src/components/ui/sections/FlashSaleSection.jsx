@@ -1,11 +1,11 @@
 import { ShoppingCart, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Badge from "../common/Badge";
-import Container from "../common/Container";
-import Grid from "../common/Grid";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import Badge from "../Badge";
+import Container from "../Container";
+import Grid from "../Grid";
+import Heading from "../Heading";
+import Text from "../Text";
 
 const FlashSaleSection = ({
   products = [],

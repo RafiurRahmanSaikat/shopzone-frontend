@@ -1,8 +1,6 @@
 "use client";
 import { SlidersHorizontal } from "lucide-react";
-import Badge from "../common/Badge";
-import Heading from "../common/Heading";
-import Text from "../common/Text";
+import { Badge, Heading, Text } from "../../../components";
 
 const ProductListHeader = ({
   title = "Products",

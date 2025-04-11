@@ -1,8 +1,6 @@
 "use client";
 import { Search, X } from "lucide-react";
-import Button from "../common/Button";
-import Card from "../common/Card";
-import Heading from "../common/Heading";
+import { Button, Card, Heading } from "../../../components";
 
 const FilterSidebar = ({
   searchFilters,

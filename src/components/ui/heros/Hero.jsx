@@ -4,10 +4,10 @@ import { HeroCarousel } from "../carousels/HeroCarousel";
 
 const Hero = () => {
   return (
-    <div className="relative overflow-hidden">
+    <div className="over flow-hidden relative">
       {/* Background decoration */}
-      <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-indigo-100 opacity-70 blur-3xl dark:bg-indigo-900/30"></div>
-      <div className="absolute -right-32 -bottom-32 h-64 w-64 rounded-full bg-purple-100 opacity-70 blur-3xl dark:bg-purple-900/30"></div>
+      {/* <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-indigo-100 opacity-70 blur-3xl dark:bg-indigo-900/30"></div>
+        <div className="absolute -right-32 -bottom-32 h-64 w-64 rounded-full bg-purple-100 opacity-70 blur-3xl dark:bg-purple-900/30"></div> */}
 
       <div className="relative mx-auto max-w-[90vw] px-4 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-24 lg:px-8">
         {/* Announcement Banner */}

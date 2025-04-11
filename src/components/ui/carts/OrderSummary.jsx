@@ -38,7 +38,6 @@ const OrderSummary = ({ subtotal }) => {
           <span className="font-semibold">${total.toFixed(2)}</span>
         </div>
       </div>
-      {/* The separate checkout button has been removed in favor of the PaymentForm */}
     </div>
   );
 };
