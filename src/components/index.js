@@ -24,4 +24,5 @@ export { default as UsersList } from "./ui/lists/UsersList";
 export { default as SearchBar } from "./ui/SearchBar";
 
 export * from "./layout";
+
 export * from "./ui";
