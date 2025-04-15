@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { BASE_URL_BACKEND } from "../constants";
+import { API_URL } from "../constants";
 import AuthContext from "./AuthContext";
 
 const AuthProvider = ({ children }) => {
@@ -27,12 +27,9 @@ const AuthProvider = ({ children }) => {
     if (!token) return;
     setLoading(true);
     try {
-      const response = await axios.get(
-        `${BASE_URL_BACKEND}/accounts/users/me/`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const response = await axios.get(`${API_URL}/accounts/users/me/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setUser(response.data);
       // console.log(response.data);
       localStorage.setItem("user", JSON.stringify(response.data));
@@ -54,10 +51,7 @@ const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        `${BASE_URL_BACKEND}/token/`,
-        credentials,
-      );
+      const response = await axios.post(`${API_URL}/token/`, credentials);
       console.log(response);
       saveToken(response.data.access, response.data.refresh);
       toast.success("Login successful!");
@@ -74,10 +68,7 @@ const AuthProvider = ({ children }) => {
   const signup = async (formData) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        `${BASE_URL_BACKEND}/accounts/users/`,
-        formData,
-      );
+      const response = await axios.post(`${API_URL}/accounts/users/`, formData);
       toast.success("Signup successful!");
 
       return response;
@@ -94,7 +85,7 @@ const AuthProvider = ({ children }) => {
       const refreshToken = localStorage.getItem("refresh_token");
       if (refreshToken) {
         await axios.post(
-          `${BASE_URL_BACKEND}/logout/`,
+          `${API_URL}/logout/`,
           { refresh: refreshToken },
           {
             headers: {

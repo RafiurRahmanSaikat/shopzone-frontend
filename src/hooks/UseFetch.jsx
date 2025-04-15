@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { BASE_URL_BACKEND } from "../constants";
+import { API_URL } from "../constants";
 
 const UseFetch = (endpoint) => {
   const [data, setData] = useState(null);
@@ -16,7 +16,7 @@ const UseFetch = (endpoint) => {
 
       const config = {
         method: "GET",
-        url: `${BASE_URL_BACKEND}${endpoint}`,
+        url: `${API_URL}${endpoint}`,
         headers: {
           ...(token && { Authorization: `Bearer ${token}` }),
         },

@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { BASE_URL_BACKEND } from "../../constants";
+import { API_URL } from "../../constants";
 import AuthContext from "../../context/AuthContext";
 import { handlePostRequest } from "../../utils/Actions";
 
@@ -43,7 +43,7 @@ const PaymentForm = ({ totalAmount, onPaymentSuccess }) => {
     try {
       // Create a payment intent and send the customer details.
       const res = await handlePostRequest(
-        `${BASE_URL_BACKEND}/orders/create_payment_intent/`,
+        `${API_URL}/orders/create_payment_intent/`,
         {
           amount: amountInCents,
           fullName,
