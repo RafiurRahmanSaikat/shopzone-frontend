@@ -1,43 +1,7 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-// Enhanced carousel data with more engaging content
-const carouselSlides = [
-  {
-    id: 1,
-    title: "Summer Collections 2025",
-    description:
-      "Discover trending styles for the summer season with up to 40% OFF.",
-    image:
-      "https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2215&q=80",
-    btnText: "Shop Collection",
-    btnLink: "/products?category=Fashion",
-    color: "from-indigo-600 to-purple-600",
-  },
-  {
-    id: 2,
-    title: "Tech Gadgets Showcase",
-    description:
-      "The latest tech innovations at unbeatable prices. Upgrade your devices today!",
-    image:
-      "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2021&q=80",
-    btnText: "Explore Tech",
-    btnLink: "/products?category=Electronics",
-    color: "from-purple-600 to-pink-600",
-  },
-  {
-    id: 3,
-    title: "Home Essentials",
-    description:
-      "Transform your living space with our curated home collection. Free shipping on orders over $50.",
-    image:
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2232&q=80",
-    btnText: "Shop Home",
-    btnLink: "/products?category=Home & Kitchen",
-    color: "from-amber-600 to-orange-600",
-  },
-];
+import { CAROUSEL_SLIDES } from "../../constants";
 
 export function HeroCarousel() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -75,7 +39,7 @@ export function HeroCarousel() {
 
     setIsTransitioning(true);
     setActiveSlide(
-      (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length,
+      (prev) => (prev - 1 + CAROUSEL_SLIDES.length) % CAROUSEL_SLIDES.length,
     );
     resetCarouselInterval();
 
@@ -89,7 +53,7 @@ export function HeroCarousel() {
     if (isTransitioning) return;
 
     setIsTransitioning(true);
-    setActiveSlide((prev) => (prev + 1) % carouselSlides.length);
+    setActiveSlide((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
     resetCarouselInterval();
 
     // Reset transitioning state after animation completes
@@ -113,7 +77,7 @@ export function HeroCarousel() {
         className="absolute inset-0 flex transition-transform duration-700 ease-out"
         style={{ transform: `translateX(-${activeSlide * 100}%)` }}
       >
-        {carouselSlides.map((slide, index) => (
+        {CAROUSEL_SLIDES.map((slide, index) => (
           <div key={slide.id} className="relative h-full w-full flex-shrink-0">
             {/* Gradient overlay */}
             <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/40 to-black/20"></div>
@@ -195,7 +159,7 @@ export function HeroCarousel() {
 
       {/* Carousel Indicators with active state animations */}
       <div className="absolute right-0 bottom-8 left-0 z-30 flex justify-center space-x-3">
-        {carouselSlides.map((_, index) => (
+        {CAROUSEL_SLIDES.map((_, index) => (
           <button
             key={index}
             onClick={() => handleSlideChange(index)}

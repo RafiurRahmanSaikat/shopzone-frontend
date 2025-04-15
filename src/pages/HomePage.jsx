@@ -146,7 +146,7 @@ const HomePage = () => {
   const flashSaleProducts = getFlashSaleProducts();
 
   return (
-    <div className="bg-zinc-100 dark:bg-zinc-800">
+    <>
       <Hero />
 
       {/* Show skeleton while loading products */}
@@ -210,7 +210,7 @@ const HomePage = () => {
       <TestimonialsSection />
       <Stats />
       <FAQ />
-    </div>
+    </>
   );
 };
 

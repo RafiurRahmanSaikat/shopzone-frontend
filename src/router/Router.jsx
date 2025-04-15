@@ -1,6 +1,5 @@
 import {
   AuthComponent,
-  DashboardLayout,
   MyOrderList,
   MyProductList,
   OrderList,
@@ -15,6 +14,7 @@ import {
 } from "@components";
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "../components";
+import DashboardLayout2 from "../components/layout/DashboardLayout2";
 import ProductsPage from "../components/product/ProductsPage";
 import ProfilePage from "../components/ProfilePage";
 import HomePage from "../pages/HomePage";
@@ -36,7 +36,7 @@ const Router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <Private>
-        <DashboardLayout />
+        <DashboardLayout2 />
       </Private>
     ),
     errorElement: <ErrorPage message={"404 Not Found"} />,

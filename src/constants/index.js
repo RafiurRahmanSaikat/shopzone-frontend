@@ -1,4 +1,5 @@
 export const API_URL = "https://shopzone-backend-gilt.vercel.app/api";
+// export const API_URL = "http://127.0.0.1:8000/api";
 
 export const sidebarLinks = {
   admin: [
@@ -75,7 +76,6 @@ export const API_ENDPOINTS = {
   CATEGORIES: "/categories/",
   BRANDS: "/brands/",
 };
-
 // Navigation links
 export const NAV_LINKS = {
   main: [
@@ -87,19 +87,48 @@ export const NAV_LINKS = {
     common: [
       { name: "Dashboard", path: "/dashboard" },
       { name: "Profile", path: "/dashboard/profile" },
-      { name: "Orders", path: "/dashboard/orders" },
     ],
     storeOwner: [
-      { name: "My Products", path: "/dashboard/products" },
-      { name: "My Stores", path: "/dashboard/stores" },
+      { name: "My Products", path: "/dashboard/manage_products" },
+      { name: "My Stores", path: "/dashboard/manage_stores" },
+      { name: "Orders From Store", path: "/dashboard/manage_orders" },
     ],
     admin: [
       { name: "All Products", path: "/dashboard/products" },
       { name: "All Stores", path: "/dashboard/stores" },
-      { name: "Users", path: "/dashboard/users" },
+      { name: "All Users", path: "/dashboard/users" },
+      { name: "All Orders", path: "/dashboard/orders" },
+    ],
+    customer: [
+      { name: "My Orders", path: "/dashboard/my_orders" },
+      { name: "Cart", path: "/dashboard/cart" },
     ],
   },
 };
+// // Navigation links
+// export const NAV_LINKS = {
+//   main: [
+//     { name: "Home", path: "/" },
+//     { name: "Products", path: "/products" },
+//     { name: "Cart", path: "/cart" },
+//   ],
+//   dashboard: {
+//     common: [
+//       { name: "Dashboard", path: "/dashboard" },
+//       { name: "Profile", path: "/dashboard/profile" },
+//       { name: "Orders", path: "/dashboard/orders" },
+//     ],
+//     storeOwner: [
+//       { name: "My Products", path: "/dashboard/products" },
+//       { name: "My Stores", path: "/dashboard/stores" },
+//     ],
+//     admin: [
+//       { name: "All Products", path: "/dashboard/products" },
+//       { name: "All Stores", path: "/dashboard/stores" },
+//       { name: "Users", path: "/dashboard/users" },
+//     ],
+//   },
+// };
 
 // Product categories
 export const PRODUCT_CATEGORIES = [
@@ -140,5 +169,41 @@ export const FAQ_QUES = [
     question: "How do I contact customer support?",
     answer:
       "You can reach us via our Contact Us page or email support@shopzone.com. Our support team is available 24/7.",
+  },
+];
+// Enhanced carousel data with more engaging content
+export const CAROUSEL_SLIDES = [
+  {
+    id: 1,
+    title: "Summer Collections 2025",
+    description:
+      "Discover trending styles for the summer season with up to 40% OFF.",
+    image:
+      "https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2215&q=80",
+    btnText: "Shop Collection",
+    btnLink: "/products?category=Fashion",
+    color: "from-indigo-600 to-purple-600",
+  },
+  {
+    id: 2,
+    title: "Tech Gadgets Showcase",
+    description:
+      "The latest tech innovations at unbeatable prices. Upgrade your devices today!",
+    image:
+      "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2021&q=80",
+    btnText: "Explore Tech",
+    btnLink: "/products?category=Electronics",
+    color: "from-purple-600 to-pink-600",
+  },
+  {
+    id: 3,
+    title: "Home Essentials",
+    description:
+      "Transform your living space with our curated home collection. Free shipping on orders over $50.",
+    image:
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2232&q=80",
+    btnText: "Shop Home",
+    btnLink: "/products?category=Home & Kitchen",
+    color: "from-amber-600 to-orange-600",
   },
 ];

@@ -1,10 +1,10 @@
-import { LogOut, User } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { LogOut, Menu, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../theme/useTheme";
+import { Button } from "../ui";
 
-const DashboardHeader = ({ user, logout }) => {
+const DashboardHeader = ({ user, logout, toggleSidebar }) => {
   const { ThemeToggleButton } = useTheme();
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,53 +13,67 @@ const DashboardHeader = ({ user, logout }) => {
   };
 
   return (
-    <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b bg-white py-3 text-sm md:flex-nowrap md:justify-start lg:ps-[260px] dark:border-neutral-700 dark:bg-neutral-800">
-      <nav className="mx-auto flex w-full basis-full items-center px-4 sm:px-6">
-        <div className="me-5 lg:me-0 lg:hidden">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-xl font-bold text-transparent"
+    <header className="sticky top-0 z-10 border-b border-gray-200 bg-white dark:border-neutral-700 dark:bg-neutral-800">
+      <div className="flex h-16 items-center justify-between px-4">
+        <div className="flex items-center">
+          {/* Hamburger menu first */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleSidebar}
+            className="lg:hidden"
+            aria-label="Toggle sidebar"
           >
-            ShopZone
-          </Link>
-          {/* End Logo */}
-          <div className="ms-1 lg:hidden"></div>
+            <Menu size={24} />
+          </Button>
         </div>
-        <div className="ms-auto flex w-full items-center justify-end gap-x-3 md:gap-x-4">
-          <div className="flex flex-row items-center gap-3">
-            {/* Theme Toggle */}
-            <ThemeToggleButton />
 
-            {/* User Info */}
-            {user && (
-              <div className="flex items-center gap-3">
-                {/* Profile Picture */}
-                <div className="relative">
-                  {user.profile_picture ? (
-                    <img
-                      src={user.profile_picture}
-                      alt={user.username}
-                      className="h-10 w-10 rounded-full border-2 border-gray-300 shadow-lg"
-                    />
-                  ) : (
-                    <User className="h-10 w-10 text-gray-500" />
-                  )}
-                </div>
-                {/* User Info */}
-                <div className="hidden text-gray-700 sm:block dark:text-gray-300">
-                  <p className="text-sm font-semibold">{user.username}</p>
-                  <p className="text-xs">{user.email}</p>
-                </div>
-                {/* Logout Icon */}
-                <button onClick={handleLogout}>
-                  <LogOut className="h-5 w-5 rounded-full text-red-500" />
-                </button>
+        <div className="flex items-center gap-4">
+          {/* Theme Toggle Button */}
+          <ThemeToggleButton />
+
+          {/* User Info and Logout */}
+          {user && (
+            <div className="flex items-center gap-3">
+              {/* User Info - Only visible on larger screens */}
+              <div className="hidden flex-col text-right md:flex">
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  {user.username}
+                </span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  {user.email}
+                </span>
               </div>
-            )}
-          </div>
+              {/* Profile Picture */}
+              {user.profile_picture ? (
+                <img
+                  src={user.profile_picture}
+                  alt="User Avatar"
+                  className="h-8 w-8 rounded-full border border-gray-300 object-cover"
+                />
+              ) : (
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-700">
+                  <User
+                    size={16}
+                    className="text-gray-500 dark:text-gray-300"
+                  />
+                </div>
+              )}
+              {/* Logout Button */}
+              <Button
+                variant="danger"
+                size="sm"
+                shape="rounded"
+                onClick={handleLogout}
+                aria-label="Logout"
+              >
+                <LogOut size={18} />
+                <span className="sr-only">Logout</span>
+              </Button>
+            </div>
+          )}
         </div>
-      </nav>
+      </div>
     </header>
   );
 };
