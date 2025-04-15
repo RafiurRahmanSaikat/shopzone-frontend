@@ -63,7 +63,7 @@ Card.Footer = ({ children, className = "", ...props }) => (
 Card.Image = ({ src, alt, className = "", ...props }) => (
   <div className="relative w-full overflow-hidden">
     <img
-      src={src || "/placeholder.svg"}
+      src={src || "/placeholder.png"}
       alt={alt || "Card image"}
       className={`w-full object-cover ${className}`}
       {...props}

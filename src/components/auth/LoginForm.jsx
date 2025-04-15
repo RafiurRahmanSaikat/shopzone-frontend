@@ -68,9 +68,9 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        {/* <label className="block text-sm font-medium text-gray-700">
           User Name
-        </label>
+        </label> */}
         <div className="relative mt-1">
           <input
             type="text"

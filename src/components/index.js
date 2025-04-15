@@ -1,32 +1,27 @@
-export { default as DashboardLayout } from "../layouts/DashboardLayout";
-export { default as RootLayout } from "../layouts/RootLayout";
 export { default as Private } from "../router/PrivateRoute";
 export { default as RoleBasedRoute } from "../router/RoleBasedRoute";
 export { default as AuthComponent } from "./auth/AuthComponent";
-export { default as Home } from "./Home/Home";
-export { default as Profile } from "./ui/accounts/Profile";
-export { default as StatusBadge } from "./ui/badges/StatusBadge";
-export { default as ProductCard } from "./ui/cards/ProductCard";
-export { default as StoreCard } from "./ui/cards/StoreCard";
-export { default as ShoppingCart } from "./ui/carts/ShoppingCart";
-export { default as ProductDetails } from "./ui/details/ProductDetails";
-export { default as ErrorPage } from "./ui/errors/ErrorPage";
-export { default as FAQ } from "./ui/faqs/FAQ";
-export { default as Footer } from "./ui/footers/Footer";
-export { default as Hero } from "./ui/heros/Hero";
+export { default as ProductCard } from "./product/ProductCard";
 
+export { default as ShoppingCart } from "../components/cart/ShoppingCart";
+export { default as Hero } from "../components/hero/Hero";
+export { default as StoreCard } from "../components/store/StoreCard";
+export { default as ProductDetails } from "./product/ProductDetails";
+export { default as ErrorPage } from "./ui/ErrorPage";
+
+export { default as Stats } from "./Home/Stats";
+export { default as DashboardHeader } from "./layout/DashboardHeader";
+export { default as Navbar } from "./layout/Navbar";
+export { default as Sidebar } from "./layout/SideBar";
+export { default as ProductModal } from "./product/ProductModal";
+export { default as StoreModal } from "./store/StoreModal";
 export { default as MyOrderList } from "./ui/lists/MyOrderList";
 export { default as MyProductList } from "./ui/lists/MyProductList";
 export { default as OrderList } from "./ui/lists/OrderList";
 export { default as ProductList } from "./ui/lists/ProductList";
 export { default as StoreList } from "./ui/lists/StoreList";
 export { default as UsersList } from "./ui/lists/UsersList";
-export { default as ProductModal } from "./ui/modals/ProductModal";
-export { default as StoreModal } from "./ui/modals/StoreModal";
-export { default as DashboardHeader } from "./ui/navbars/DashboardHeader";
-export { default as Navbar } from "./ui/navbars/Navbar";
-export { default as Sidebar } from "./ui/navbars/SideBar";
-export { default as SearchBar } from "./ui/search/SearchBar";
-export { default as Stats } from "./ui/stats/Stats";
+export { default as SearchBar } from "./ui/SearchBar";
 
+export * from "./layout";
 export * from "./ui";

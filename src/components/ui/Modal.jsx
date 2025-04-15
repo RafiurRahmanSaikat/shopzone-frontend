@@ -1,89 +1,28 @@
-"use client"
+import { X } from "lucide-react";
 
-import { X } from "lucide-react"
-import Button from "./Button"
-
-const Modal = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  footer,
-  size = "md",
-  closeOnOverlayClick = true,
-  className = "",
-  ...props
-}) => {
-  if (!isOpen) return null
-
-  // Size styles
-  const sizeStyles = {
-    sm: "max-w-md",
-    md: "max-w-lg",
-    lg: "max-w-2xl",
-    xl: "max-w-4xl",
-    full: "max-w-full mx-4",
-  }
-
-  const handleOverlayClick = (e) => {
-    if (closeOnOverlayClick && e.target === e.currentTarget) {
-      onClose()
-    }
-  }
+export default function Modal({ isOpen, onClose, children, title }) {
+  if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4"
-      onClick={handleOverlayClick}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div
-        className={`
-          relative w-full rounded-lg bg-white shadow-xl transition-all dark:bg-zinc-900
-          ${sizeStyles[size]}
-          ${className}
-        `}
-        {...props}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 dark:border-zinc-700">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white">{title}</h3>
+        className="fixed inset-0 bg-black opacity-50"
+        onClick={onClose}
+      ></div>
+      <div className="relative z-50 w-full max-w-3xl rounded-lg bg-white p-6 shadow-xl dark:bg-zinc-900">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-gray-600 dark:text-white">
+            {title}
+          </h2>
           <button
-            type="button"
             onClick={onClose}
-            className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 dark:text-gray-500 dark:hover:bg-zinc-800 dark:hover:text-gray-400"
+            className="rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
-
-        {/* Body */}
-        <div className="px-6 py-4">{children}</div>
-
-        {/* Footer */}
-        {footer && <div className="border-t border-gray-200 px-6 py-4 dark:border-zinc-700">{footer}</div>}
+        {children}
       </div>
     </div>
-  )
+  );
 }
-
-// Preset footer with cancel/confirm buttons
-Modal.Footer = ({
-  onCancel,
-  onConfirm,
-  cancelText = "Cancel",
-  confirmText = "Confirm",
-  confirmVariant = "primary",
-  isLoading = false,
-  ...props
-}) => (
-  <div className="flex justify-end space-x-2" {...props}>
-    <Button variant="secondary" onClick={onCancel} disabled={isLoading}>
-      {cancelText}
-    </Button>
-    <Button variant={confirmVariant} onClick={onConfirm} isLoading={isLoading}>
-      {confirmText}
-    </Button>
-  </div>
-)
-
-export default Modal

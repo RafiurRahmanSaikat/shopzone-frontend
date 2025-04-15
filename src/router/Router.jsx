@@ -1,15 +1,12 @@
 import {
   AuthComponent,
   DashboardLayout,
-  ErrorPage,
-  Home,
   MyOrderList,
   MyProductList,
   OrderList,
   Private,
   ProductDetails,
   ProductList,
-  Profile,
   RoleBasedRoute,
   RootLayout,
   ShoppingCart,
@@ -17,7 +14,10 @@ import {
   UsersList,
 } from "@components";
 import { createBrowserRouter } from "react-router-dom";
-import ProductsPage from "../components/ui/product/ProductsPage";
+import { ErrorPage } from "../components";
+import ProductsPage from "../components/product/ProductsPage";
+import ProfilePage from "../components/ProfilePage";
+import HomePage from "../pages/HomePage";
 
 const Router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ const Router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/", element: <HomePage /> },
       { path: "login", element: <AuthComponent /> },
       { path: "signup", element: <AuthComponent /> },
       { path: "products/:id", element: <ProductDetails /> },
@@ -41,8 +41,8 @@ const Router = createBrowserRouter([
     ),
     errorElement: <ErrorPage message={"404 Not Found"} />,
     children: [
-      { path: "", element: <Profile /> },
-      { path: "profile", element: <Profile /> },
+      { path: "", element: <ProfilePage /> },
+      { path: "profile", element: <ProfilePage /> },
       {
         path: "cart",
         element: (

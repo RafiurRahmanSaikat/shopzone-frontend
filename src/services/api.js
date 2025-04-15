@@ -1,10 +1,10 @@
 import axios from "axios"
 import { toast } from "react-hot-toast"
-import { BASE_URL_BACKEND } from "../constants"
+import { API_URL } from "../constants"
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: BASE_URL_BACKEND,
+  baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -47,7 +47,7 @@ api.interceptors.response.use(
         }
 
         // Try to get a new token
-        const response = await axios.post(`${BASE_URL_BACKEND}/token/refresh/`, {
+        const response = await axios.post(`${API_URL}/token/refresh/`, {
           refresh: refreshToken,
         })
 
