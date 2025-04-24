@@ -1,33 +1,34 @@
-"use client"
+import { StoreIcon, Upload } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import {
+  Button,
+  Grid,
+  Heading,
+  Input,
+  Modal,
+  NoData,
+  Spinner,
+  StoreCard,
+  Text,
+} from "../components";
 
-import { useState, useEffect, useContext } from "react"
-import { toast } from "react-hot-toast"
-import { AuthContext } from "../../contexts/AuthContext"
-import { USER_ROLES } from "../../constants"
-import Heading from "../../components/ui/Heading"
-import Text from "../../components/ui/Text"
-import Grid from "../../components/ui/Grid"
-import Button from "../../components/ui/Button"
-import Input from "../../components/ui/Input"
-import Modal from "../../components/ui/Modal"
-import Spinner from "../../components/ui/Spinner"
-import NoData from "../../components/ui/NoData"
-import StoreCard from "../../components/dashboard/StoreCard"
-import { StoreIcon, Upload } from "lucide-react"
-import storeService from "../../services/storeService"
+import { USER_ROLES } from "../constants";
+import AuthContext from "../context/AuthContext";
+import storeService from "../services/storeService";
 
 const StoresManagePage = () => {
-  const { user } = useContext(AuthContext)
-  const [stores, setStores] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [selectedStore, setSelectedStore] = useState(null)
-  const [logoFile, setLogoFile] = useState(null)
-  const [logoPreview, setLogoPreview] = useState(null)
-  const [bannerFile, setBannerFile] = useState(null)
-  const [bannerPreview, setBannerPreview] = useState(null)
+  const { user } = useContext(AuthContext);
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedStore, setSelectedStore] = useState(null);
+  const [logoFile, setLogoFile] = useState(null);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const [bannerFile, setBannerFile] = useState(null);
+  const [bannerPreview, setBannerPreview] = useState(null);
 
   const initialFormData = {
     name: "",
@@ -38,62 +39,62 @@ const StoresManagePage = () => {
     email: "",
     website: "",
     is_active: true,
-  }
+  };
 
-  const [formData, setFormData] = useState(initialFormData)
+  const [formData, setFormData] = useState(initialFormData);
 
   const fetchStores = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const params = {}
+      const params = {};
 
       // If store owner, only fetch their stores
       if (user.role === USER_ROLES.STORE_OWNER) {
-        params.owner = user.id
+        params.owner = user.id;
       }
 
-      const response = await storeService.getStores(params)
-      setStores(response.data.results)
-      setError(null)
+      const response = await storeService.getStores(params);
+      setStores(response.data.results);
+      setError(null);
     } catch (err) {
-      setError("Failed to load stores")
-      toast.error("Failed to load stores")
-      console.error(err)
+      setError("Failed to load stores");
+      toast.error("Failed to load stores");
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchStores()
-  }, [user])
+    fetchStores();
+  }, [user]);
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
-    }))
-  }
+    }));
+  };
 
   const handleLogoChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (file) {
-      setLogoFile(file)
-      setLogoPreview(URL.createObjectURL(file))
+      setLogoFile(file);
+      setLogoPreview(URL.createObjectURL(file));
     }
-  }
+  };
 
   const handleBannerChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (file) {
-      setBannerFile(file)
-      setBannerPreview(URL.createObjectURL(file))
+      setBannerFile(file);
+      setBannerPreview(URL.createObjectURL(file));
     }
-  }
+  };
 
   const handleEdit = (store) => {
-    setSelectedStore(store)
+    setSelectedStore(store);
     setFormData({
       name: store.name,
       description: store.description || "",
@@ -103,67 +104,69 @@ const StoresManagePage = () => {
       email: store.email || "",
       website: store.website || "",
       is_active: store.is_active,
-    })
-    setLogoPreview(store.logo)
-    setBannerPreview(store.banner_image)
-    setIsModalOpen(true)
-  }
+    });
+    setLogoPreview(store.logo);
+    setBannerPreview(store.banner_image);
+    setIsModalOpen(true);
+  };
 
   const handleAdd = () => {
-    setSelectedStore(null)
-    setFormData(initialFormData)
-    setLogoFile(null)
-    setLogoPreview(null)
-    setBannerFile(null)
-    setBannerPreview(null)
-    setIsModalOpen(true)
-  }
+    setSelectedStore(null);
+    setFormData(initialFormData);
+    setLogoFile(null);
+    setLogoPreview(null);
+    setBannerFile(null);
+    setBannerPreview(null);
+    setIsModalOpen(true);
+  };
 
   const handleDelete = async (storeId) => {
     try {
-      await storeService.deleteStore(storeId)
-      toast.success("Store deleted successfully")
-      fetchStores()
+      await storeService.deleteStore(storeId);
+      toast.success("Store deleted successfully");
+      fetchStores();
     } catch (error) {
-      toast.error("Failed to delete store")
-      console.error(error)
+      toast.error("Failed to delete store");
+      console.error(error);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
-      const storeData = { ...formData }
+      const storeData = { ...formData };
 
       if (logoFile) {
-        storeData.logo = logoFile
+        storeData.logo = logoFile;
       }
 
       if (bannerFile) {
-        storeData.banner_image = bannerFile
+        storeData.banner_image = bannerFile;
       }
 
       if (selectedStore) {
         // Update existing store
-        await storeService.updateStore(selectedStore.id, storeData)
-        toast.success("Store updated successfully")
+        await storeService.updateStore(selectedStore.id, storeData);
+        toast.success("Store updated successfully");
       } else {
         // Create new store
-        await storeService.createStore(storeData)
-        toast.success("Store created successfully")
+        await storeService.createStore(storeData);
+        toast.success("Store created successfully");
       }
 
-      setIsModalOpen(false)
-      fetchStores()
+      setIsModalOpen(false);
+      fetchStores();
     } catch (error) {
-      toast.error(selectedStore ? "Failed to update store" : "Failed to create store")
-      console.error(error)
+      toast.error(
+        selectedStore ? "Failed to update store" : "Failed to create store",
+      );
+      console.error(error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -173,10 +176,16 @@ const StoresManagePage = () => {
             Stores
           </Heading>
           <Text muted>
-            {user?.role === USER_ROLES.STORE_OWNER ? "Manage your stores" : "Manage all stores in the system"}
+            {user?.role === USER_ROLES.STORE_OWNER
+              ? "Manage your stores"
+              : "Manage all stores in the system"}
           </Text>
         </div>
-        <Button variant="primary" leftIcon={<StoreIcon className="h-4 w-4" />} onClick={handleAdd}>
+        <Button
+          variant="primary"
+          leftIcon={<StoreIcon className="h-4 w-4" />}
+          onClick={handleAdd}
+        >
           Add Store
         </Button>
       </div>
@@ -203,7 +212,12 @@ const StoresManagePage = () => {
       ) : (
         <Grid cols={3} gap={6}>
           {stores.map((store) => (
-            <StoreCard key={store.id} store={store} onEdit={handleEdit} onDelete={handleDelete} />
+            <StoreCard
+              key={store.id}
+              store={store}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           ))}
         </Grid>
       )}
@@ -224,10 +238,18 @@ const StoresManagePage = () => {
       >
         <form onSubmit={handleSubmit}>
           <Grid cols={1} gap={4} className="mb-4">
-            <Input label="Store Name" name="name" value={formData.name} onChange={handleInputChange} required />
+            <Input
+              label="Store Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Description
+              </label>
               <textarea
                 name="description"
                 value={formData.description}
@@ -246,12 +268,28 @@ const StoresManagePage = () => {
               placeholder="e.g. Electronics, Fashion, etc."
             />
 
-            <Input label="Address" name="address" value={formData.address} onChange={handleInputChange} />
+            <Input
+              label="Address"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+            />
 
             <Grid cols={2} gap={4}>
-              <Input label="Phone" name="phone" value={formData.phone} onChange={handleInputChange} />
+              <Input
+                label="Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
 
-              <Input label="Email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
+              <Input
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
             </Grid>
 
             <Input
@@ -263,7 +301,9 @@ const StoresManagePage = () => {
             />
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Store Logo</label>
+              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Store Logo
+              </label>
               <div className="mb-4 flex items-center justify-center">
                 {logoPreview ? (
                   <div className="relative h-32 w-32">
@@ -275,8 +315,8 @@ const StoresManagePage = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        setLogoFile(null)
-                        setLogoPreview(null)
+                        setLogoFile(null);
+                        setLogoPreview(null);
                       }}
                       className="absolute top-0 right-0 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
                     >
@@ -302,14 +342,21 @@ const StoresManagePage = () => {
                         Upload Logo
                       </Text>
                     </div>
-                    <input type="file" className="hidden" accept="image/*" onChange={handleLogoChange} />
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleLogoChange}
+                    />
                   </label>
                 )}
               </div>
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Banner Image</label>
+              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Banner Image
+              </label>
               <div className="mb-4 flex items-center justify-center">
                 {bannerPreview ? (
                   <div className="relative h-40 w-full">
@@ -321,8 +368,8 @@ const StoresManagePage = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        setBannerFile(null)
-                        setBannerPreview(null)
+                        setBannerFile(null);
+                        setBannerPreview(null);
                       }}
                       className="absolute top-0 right-0 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
                     >
@@ -348,7 +395,12 @@ const StoresManagePage = () => {
                         Upload Banner Image
                       </Text>
                     </div>
-                    <input type="file" className="hidden" accept="image/*" onChange={handleBannerChange} />
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleBannerChange}
+                    />
                   </label>
                 )}
               </div>
@@ -363,7 +415,10 @@ const StoresManagePage = () => {
                 onChange={handleInputChange}
                 className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 dark:border-gray-600"
               />
-              <label htmlFor="is_active" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="is_active"
+                className="ml-2 text-sm text-gray-700 dark:text-gray-300"
+              >
                 Active (visible to customers)
               </label>
             </div>
@@ -371,7 +426,7 @@ const StoresManagePage = () => {
         </form>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default StoresManagePage
+export default StoresManagePage;

@@ -1,61 +1,39 @@
+import { Button, Text } from "@components";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { handleDeleteRequest, handlePutRequest } from "../../utils/Actions";
-
+import cartService from "../../services/cartService";
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
+  const [quantity, setQuantity] = useState(item?.quantity || 1);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(item.quantity.toString());
 
-  const handleQuantityChange = async (newQty) => {
-    if (newQty < 1 || isUpdating) return;
+  const handleQuantityChange = async (newQuantity) => {
+    if (newQuantity < 1 || newQuantity > 99 || !item?.id) return;
+
+    setQuantity(newQuantity);
     setIsUpdating(true);
+
     try {
-      await handlePutRequest(`/cart/${item.id}/`, { quantity: newQty });
-      onUpdateQuantity(item.id, newQty);
-      setInputValue(newQty.toString());
-      toast.success("Cart updated successfully");
+      await cartService.updateCartItem(item.id, newQuantity);
+      onUpdateQuantity?.();
     } catch (error) {
       toast.error("Failed to update quantity");
-      setInputValue(item.quantity.toString());
+      setQuantity(item.quantity); // Reset to original quantity
     } finally {
       setIsUpdating(false);
-      setIsEditing(false);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^\d+$/.test(value)) {
-      setInputValue(value);
-    }
-  };
-
-  const handleInputBlur = () => {
-    const newQty = parseInt(inputValue);
-    if (!isNaN(newQty) && newQty >= 1) {
-      handleQuantityChange(newQty);
-    } else {
-      setInputValue(item.quantity.toString());
-    }
-    setIsEditing(false);
-  };
-
-  const handleInputKeyPress = (e) => {
-    if (e.key === "Enter") {
-      e.target.blur();
     }
   };
 
   const handleRemove = async () => {
-    if (isRemoving) return;
+    if (!item?.id) return;
+
     setIsRemoving(true);
     try {
-      await handleDeleteRequest(`/cart/${item.id}/`);
-      onRemove(item.id);
+      await cartService.removeFromCart(item.id);
       toast.success("Item removed from cart");
+      onRemove?.();
     } catch (error) {
       toast.error("Failed to remove item");
     } finally {
@@ -63,84 +41,96 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
     }
   };
 
+  if (!item) return null;
+  console.log(item);
+  const product = item || {};
+  const productId = product?.product;
+  const productName = product?.product_name || "Product";
+  const productImage = product?.product_image || "/placeholder.jpg";
+  const productPrice = product?.product_price || 0;
+  const itemTotal = productPrice * quantity;
+
   return (
-    <div className="mb-6 rounded-lg bg-white p-4 shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl dark:bg-zinc-900">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-        {/* Left Section: Product Details */}
-        <div className="flex items-center space-x-4">
-          <img
-            className="h-24 w-28 rounded-lg border border-gray-200 object-cover shadow-md dark:border-zinc-700"
-            src={item.product_image || "/placeholder.jpg"}
-            alt={item.product_name}
-          />
-          <div>
-            <p className="text-xl font-semibold text-zinc-900 dark:text-white">
-              {item.product_name}
-            </p>
-            <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
-              ${item.product_price.toFixed(2)}
-            </p>
-          </div>
+    <div
+      className={`relative ${isRemoving ? "opacity-50" : ""} transition-opacity duration-300`}
+    >
+      <div className="flex flex-col border-b border-zinc-200 pb-4 sm:flex-row sm:items-center dark:border-zinc-700">
+        <div className="flex-shrink-0">
+          <Link to={`/products/${productId}`}>
+            <img
+              src={productImage || "/placeholder.svg"}
+              alt={productName}
+              className="h-24 w-24 rounded-lg object-cover"
+            />
+          </Link>
         </div>
 
-        {/* Right Section: Quantity Controls, Delete Button & Total Price */}
-        <div className="mt-4 flex flex-col items-end space-y-3 md:mt-0">
-          <div className="flex items-center space-x-4">
-            {/* Quantity Controls */}
-            <div className="flex items-center space-x-2 rounded-lg border border-zinc-300 p-2 dark:border-zinc-600">
-              <button
-                className="rounded-full p-2 text-zinc-700 hover:bg-zinc-100 disabled:opacity-50 dark:text-zinc-300 dark:hover:bg-zinc-700"
-                onClick={() => handleQuantityChange(item.quantity - 1)}
-                disabled={isUpdating || item.quantity <= 1}
+        <div className="mt-4 flex flex-1 flex-col sm:mt-0 sm:ml-6">
+          <div className="flex justify-between">
+            <Link to={`/products/${productId}`}>
+              <Text
+                size="lg"
+                weight="medium"
+                className="hover:text-blue-600 dark:hover:text-blue-400"
               >
-                <Minus className="h-4 w-4" />
-              </button>
-
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleInputBlur}
-                  onKeyPress={handleInputKeyPress}
-                  className="w-12 border-none bg-transparent text-center font-medium text-zinc-900 focus:outline-none dark:text-white"
-                  autoFocus
-                />
-              ) : (
-                <span
-                  className="w-12 cursor-pointer text-center font-medium text-zinc-900 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-800"
-                  onClick={() => setIsEditing(true)}
-                >
-                  {isUpdating ? "..." : item.quantity}
-                </span>
-              )}
-
-              <button
-                className="rounded-full p-2 text-zinc-700 hover:bg-zinc-100 disabled:opacity-50 dark:text-zinc-300 dark:hover:bg-zinc-700"
-                onClick={() => handleQuantityChange(item.quantity + 1)}
-                disabled={isUpdating}
-              >
-                <Plus className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Delete Button */}
-            <button
-              className="flex items-center space-x-1 rounded-full p-2 text-red-500 hover:bg-red-50 disabled:opacity-50 dark:text-red-400 dark:hover:bg-red-900/30"
-              onClick={handleRemove}
-              disabled={isRemoving}
-            >
-              <Trash2 className="h-4 w-4" />
-              <span className="text-sm font-medium">Delete</span>
-            </button>
+                {productName}
+              </Text>
+            </Link>
+            <Text size="lg" weight="medium">
+              ${itemTotal.toFixed(2)}
+            </Text>
           </div>
 
-          {/* Total Price */}
-          <div className="flex justify-between text-xl font-bold text-zinc-900 dark:text-white">
-            <p className="items-start">Subtotal Price:</p>
-            <p className="ml-1 text-blue-600 dark:text-blue-400">
-              ${(item.product_price * item.quantity).toFixed(2)}
-            </p>
+          <Text size="sm" muted className="mt-1">
+            ${productPrice.toFixed(2)} each
+          </Text>
+
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex items-center">
+              <Button
+                variant="outline"
+                onClick={() => handleQuantityChange(quantity - 1)}
+                disabled={quantity <= 1 || isUpdating}
+              >
+                <Minus className="h-3 w-3" />
+              </Button>
+
+              <input
+                type="number"
+                min="1"
+                max="99"
+                value={quantity}
+                onChange={(e) =>
+                  handleQuantityChange(Number.parseInt(e.target.value) || 1)
+                }
+                className="h-8 w-12 border-y border-zinc-300 bg-white px-2 text-center text-sm text-zinc-900 focus:outline-none dark:border-zinc-600 dark:bg-zinc-800 dark:text-white"
+              />
+
+              <Button
+                variant="outline"
+                onClick={() => handleQuantityChange(quantity + 1)}
+                disabled={quantity >= 99 || isUpdating}
+              >
+                <Plus className="h-3 w-3" />
+              </Button>
+
+              {isUpdating && (
+                <Text size="xs" muted className="ml-2">
+                  Updating...
+                </Text>
+              )}
+            </div>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+              onClick={handleRemove}
+              disabled={isRemoving}
+              leftIcon={<Trash2 className="h-4 w-4" />}
+            >
+              Remove
+            </Button>
           </div>
         </div>
       </div>

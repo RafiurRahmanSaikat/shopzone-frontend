@@ -5,19 +5,21 @@ import {
   OrderList,
   Private,
   ProductDetails,
-  ProductList,
   RoleBasedRoute,
   RootLayout,
   ShoppingCart,
-  StoreList,
   UsersList,
 } from "@components";
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "../components";
 import DashboardLayout2 from "../components/layout/DashboardLayout2";
 import ProductsPage from "../components/product/ProductsPage";
-import ProfilePage from "../components/ProfilePage";
+
+import DashboardHomePage from "../pages/DashboardHomePage";
 import HomePage from "../pages/HomePage";
+import ProductsManagePage from "../pages/ProductsManagePage";
+import ProfilePage from "../pages/ProfilePage";
+import StoresManagePage from "../pages/StoresManagePage";
 
 const Router = createBrowserRouter([
   {
@@ -41,7 +43,7 @@ const Router = createBrowserRouter([
     ),
     errorElement: <ErrorPage message={"404 Not Found"} />,
     children: [
-      { path: "", element: <ProfilePage /> },
+      { path: "", element: <DashboardHomePage /> },
       { path: "profile", element: <ProfilePage /> },
       {
         path: "cart",
@@ -80,7 +82,7 @@ const Router = createBrowserRouter([
         path: "products",
         element: (
           <RoleBasedRoute roles={["admin"]}>
-            <ProductList />
+            <ProductsManagePage />
           </RoleBasedRoute>
         ),
       },
@@ -88,7 +90,7 @@ const Router = createBrowserRouter([
         path: "stores",
         element: (
           <RoleBasedRoute roles={["admin"]}>
-            <StoreList />
+            <StoresManagePage />
           </RoleBasedRoute>
         ),
       },
@@ -96,7 +98,7 @@ const Router = createBrowserRouter([
         path: "manage_stores",
         element: (
           <RoleBasedRoute roles={["store_owner"]}>
-            <StoreList />
+            <StoresManagePage />
           </RoleBasedRoute>
         ),
       },

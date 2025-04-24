@@ -1,8 +1,7 @@
+import { Badge, Button } from "@components";
 import { Star } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Badge from "../ui/Badge";
-import Button from "../ui/Button";
 
 const ProductCard = ({ product, onAddToCart }) => {
   const { id, name, price, image, rating, stock, categories } = product;
@@ -24,7 +23,6 @@ const ProductCard = ({ product, onAddToCart }) => {
   };
 
   // Check if product is new (for demonstration, we'll consider products with id > 15 as new)
-  const isNew = id > 15;
 
   // Handle add to cart with loading state
   const handleAddToCart = () => {
@@ -48,7 +46,6 @@ const ProductCard = ({ product, onAddToCart }) => {
       {/* Product badges */}
       <div className="absolute top-2 left-2 z-10 flex flex-col gap-2">
         {discount > 0 && <Badge variant="danger">{discount}% OFF</Badge>}
-        {isNew && <Badge variant="gradient"> NEW</Badge>}
         {stock < 5 && stock > 0 && <Badge variant="warning"> Low Stock</Badge>}
         {stock === 0 && <Badge variant="danger"> Out of Stock</Badge>}
       </div>

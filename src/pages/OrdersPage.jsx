@@ -1,55 +1,55 @@
-import { ShoppingBag } from "lucide-react"
-import { useContext, useEffect, useState } from "react"
-import { toast } from "react-hot-toast"
-import OrderTable from "../../components/dashboard/OrderTable"
-import Card from "../../components/ui/Card"
-import Heading from "../../components/ui/Heading"
-import NoData from "../../components/ui/NoData"
-import Spinner from "../../components/ui/Spinner"
-import Text from "../../components/ui/Text"
-import { USER_ROLES } from "../../constants"
-import { AuthContext } from "../../contexts/AuthContext"
-import orderService from "../../services/orderService"
+import { ShoppingBag } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import OrderTable from "../../components/dashboard/OrderTable";
+import Card from "../components/ui/Card";
+import Heading from "../components/ui/Heading";
+import NoData from "../components/ui/NoData";
+import Spinner from "../components/ui/Spinner";
+import Text from "../components/ui/Text";
+import { USER_ROLES } from "../constants";
+import { AuthContext } from "../../contexts/AuthContext";
+import orderService from "../services/orderService";
 
 const OrdersPage = () => {
-  const { user } = useContext(AuthContext)
-  const [orders, setOrders] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [pagination, setPagination] = useState(null)
+  const { user } = useContext(AuthContext);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [pagination, setPagination] = useState(null);
 
   const fetchOrders = async (page = 1) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      let response
-      response = await orderService.getOrders({ page })
+      let response;
+      response = await orderService.getOrders({ page });
       // console.log("Fetched orders data:", response?.data?.results)
-      setOrders(response?.data?.results || [])
+      setOrders(response?.data?.results || []);
       setPagination({
         count: response?.data?.count || 0,
         next: response?.data?.next,
         previous: response?.data?.previous,
-      })
-      setError(null)
+      });
+      setError(null);
     } catch (err) {
-      setError("Failed to load orders")
-      toast.error("Failed to load orders")
-      console.error(err)
+      setError("Failed to load orders");
+      toast.error("Failed to load orders");
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   // Log orders state whenever it changes
   useEffect(() => {
     if (user) {
-      fetchOrders()
+      fetchOrders();
     }
-  }, [user])
+  }, [user]);
 
   const handlePageChange = (page) => {
-    fetchOrders(page)
-  }
+    fetchOrders(page);
+  };
 
   return (
     <div>
@@ -58,7 +58,9 @@ const OrdersPage = () => {
           Orders
         </Heading>
         <Text muted>
-          {user?.role === USER_ROLES.CUSTOMER ? "View and manage your orders" : "View and manage all customer orders"}
+          {user?.role === USER_ROLES.CUSTOMER
+            ? "View and manage your orders"
+            : "View and manage all customer orders"}
         </Text>
       </div>
 
@@ -92,11 +94,15 @@ const OrdersPage = () => {
             />
           </div>
         ) : (
-          <OrderTable orders={orders} pagination={pagination} onPageChange={handlePageChange} />
+          <OrderTable
+            orders={orders}
+            pagination={pagination}
+            onPageChange={handlePageChange}
+          />
         )}
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default OrdersPage
+export default OrdersPage;

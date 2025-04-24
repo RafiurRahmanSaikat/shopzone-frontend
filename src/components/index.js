@@ -19,7 +19,6 @@ export { default as MyOrderList } from "./ui/lists/MyOrderList";
 export { default as MyProductList } from "./ui/lists/MyProductList";
 export { default as OrderList } from "./ui/lists/OrderList";
 export { default as ProductList } from "./ui/lists/ProductList";
-export { default as StoreList } from "./ui/lists/StoreList";
 export { default as UsersList } from "./ui/lists/UsersList";
 export { default as SearchBar } from "./ui/SearchBar";
 

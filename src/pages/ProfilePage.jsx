@@ -1,7 +1,12 @@
-import { Button, Card, Grid, Heading, Input, Text } from "@components/ui";
 import { Camera, Lock, Mail, MapPin, Phone, User } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
+import Grid from "../components/ui/Grid";
+import Heading from "../components/ui/Heading";
+import Input from "../components/ui/Input";
+import Text from "../components/ui/Text";
 
 import AuthContext from "../context/AuthContext";
 import userService from "../services/userService";
