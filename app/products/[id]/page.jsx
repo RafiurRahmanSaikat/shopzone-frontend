@@ -141,12 +141,10 @@ export default function ProductDetailPage({ params }) {
               <div className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="relative aspect-square">
                   {product.image ? (
-                    <Image
+                    <img
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
-                      fill
-                      className="object-contain p-6"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="w-full h-full object-contain p-6"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-muted-foreground">
