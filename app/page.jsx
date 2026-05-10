@@ -72,6 +72,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
           <div className="relative hidden md:block">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
@@ -118,8 +119,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       <CarouselSection products={products} />
+      <TrendingSection search={search} />{" "}
       <FlashSaleSection products={products} />
       <ShopByCategorySection products={products} />
       <NewArrivalsSection
@@ -128,7 +129,6 @@ export default function HomePage() {
         products={products}
       />
       <PremiumDealsSection products={products} />
-      <TrendingSection search={search} />
       <FeaturesSection />
       <TestimonialsSection />
       <Stats />

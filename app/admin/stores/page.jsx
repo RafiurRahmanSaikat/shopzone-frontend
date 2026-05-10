@@ -1,12 +1,6 @@
-"use client"
+"use client";
 
-import { useCallback, useEffect, useState } from "react"
-import { toast } from "sonner"
-import { MapPin, Pencil, Plus, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Badge } from "@/components/ui/badge"
+import StoreFormDialog from "@/components/StoreFormDialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,39 +11,45 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import StoreFormDialog from "@/components/StoreFormDialog"
-import { apiFetch } from "@/lib/fetchClient"
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { apiFetch } from "@/lib/fetchClient";
+import { MapPin, Pencil, Plus, Trash2 } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function AdminStoresPage() {
-  const [stores, setStores] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [open, setOpen] = useState(false)
-  const [editing, setEditing] = useState(null)
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(null);
 
   const load = useCallback(async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const data = await apiFetch("/stores/")
-      setStores(Array.isArray(data) ? data : data?.results || [])
+      const data = await apiFetch("/stores/");
+      setStores(Array.isArray(data) ? data : data?.results || []);
     } catch (err) {
-      toast.error(err.message || "Failed to load stores")
+      toast.error(err.message || "Failed to load stores");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    load()
-  }, [load])
+    load();
+  }, [load]);
 
   async function handleDelete(id) {
     try {
-      await apiFetch(`/stores/${id}/`, { method: "DELETE" })
-      toast.success("Store deleted")
-      load()
+      await apiFetch(`/stores/${id}/`, { method: "DELETE" });
+      toast.success("Store deleted");
+      load();
     } catch (err) {
-      toast.error(err.message || "Failed to delete")
+      toast.error(err.message || "Failed to delete");
     }
   }
 
@@ -58,12 +58,14 @@ export default function AdminStoresPage() {
       <div className="mb-6 flex items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">All Stores</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Manage stores across the platform</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Manage stores across the platform
+          </p>
         </div>
         <Button
           onClick={() => {
-            setEditing(null)
-            setOpen(true)
+            setEditing(null);
+            setOpen(true);
           }}
         >
           <Plus className="mr-2 h-4 w-4" /> New store
@@ -89,9 +91,13 @@ export default function AdminStoresPage() {
                         <MapPin className="h-3 w-3" /> {s.location}
                       </p>
                     )}
-                    <p className="mt-1 text-xs text-muted-foreground">{s.address}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {s.address}
+                    </p>
                     {s.owner && (
-                      <p className="mt-1 text-xs text-muted-foreground">Owner: {s.owner.username || s.owner}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Owner: {s.owner.username || s.owner}
+                      </p>
                     )}
                   </div>
                   <div className="flex shrink-0 gap-1">
@@ -99,8 +105,8 @@ export default function AdminStoresPage() {
                       variant="ghost"
                       size="icon"
                       onClick={() => {
-                        setEditing(s)
-                        setOpen(true)
+                        setEditing(s);
+                        setOpen(true);
                       }}
                       aria-label="Edit"
                     >
@@ -120,11 +126,15 @@ export default function AdminStoresPage() {
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>Delete store?</AlertDialogTitle>
-                          <AlertDialogDescription>This will permanently remove {s.name}.</AlertDialogDescription>
+                          <AlertDialogDescription>
+                            This will permanently remove {s.name}.
+                          </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDelete(s.id)}>Delete</AlertDialogAction>
+                          <AlertDialogAction onClick={() => handleDelete(s.id)}>
+                            Delete
+                          </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -133,7 +143,11 @@ export default function AdminStoresPage() {
                 {s.categories?.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1">
                     {s.categories.map((c) => (
-                      <Badge key={c.id} variant="secondary" className="text-[10px]">
+                      <Badge
+                        key={c.id}
+                        variant="secondary"
+                        className="text-[10px]"
+                      >
                         {c.name}
                       </Badge>
                     ))}
@@ -153,5 +167,5 @@ export default function AdminStoresPage() {
         onSaved={load}
       />
     </div>
-  )
+  );
 }

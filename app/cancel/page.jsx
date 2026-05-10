@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { XCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import PageShell from "@/components/PageShell"
+import PageShell from "@/components/PageShell";
+import { Button } from "@/components/ui/button";
+import { XCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function CancelPage() {
   return (
     <PageShell>
       <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 text-center">
         <XCircle className="h-14 w-14 text-destructive" />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight">Payment cancelled</h1>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight">
+          Payment cancelled
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Your payment was not completed. Your cart is still saved.
         </p>
@@ -24,5 +26,5 @@ export default function CancelPage() {
         </div>
       </div>
     </PageShell>
-  )
+  );
 }

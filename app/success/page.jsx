@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { CheckCircle2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import PageShell from "@/components/PageShell"
+import PageShell from "@/components/PageShell";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 
 export default function SuccessPage() {
   return (
     <PageShell>
       <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 text-center">
         <CheckCircle2 className="h-14 w-14 text-primary" />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight">Payment successful</h1>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight">
+          Payment successful
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Thanks for your purchase! Your order is being processed.
         </p>
@@ -24,5 +26,5 @@ export default function SuccessPage() {
         </div>
       </div>
     </PageShell>
-  )
+  );
 }

@@ -1,55 +1,64 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
-import { Loader2, Package } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useAuth } from "@/context/AuthContext"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAuth } from "@/context/AuthContext";
+import { Loader2, Package } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const DEMO_USERS = [
   { username: "john_doe", password: "password123", role: "Customer" },
   { username: "lucas_perez", password: "password123", role: "Store Owner" },
   { username: "alice_johnson", password: "password123", role: "Admin" },
-]
+];
 
 export default function LoginPage() {
-  const { login } = useAuth()
-  const router = useRouter()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [submitting, setSubmitting] = useState(false)
+  const { login } = useAuth();
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   async function onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (!username || !password) {
-      toast.error("Please enter username and password")
-      return
+      toast.error("Please enter username and password");
+      return;
     }
-    setSubmitting(true)
+    setSubmitting(true);
     try {
-      await login(username, password)
-      toast.success("Welcome back!")
+      await login(username, password);
+      toast.success("Welcome back!");
     } catch (err) {
-      toast.error(err?.data?.detail || err.message || "Login failed")
+      toast.error(err?.data?.detail || err.message || "Login failed");
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }
 
   function fillDemo(u) {
-    setUsername(u.username)
-    setPassword(u.password)
+    setUsername(u.username);
+    setPassword(u.password);
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
-        <Link href="/" className="mb-6 flex items-center justify-center gap-2 font-semibold">
+        <Link
+          href="/"
+          className="mb-6 flex items-center justify-center gap-2 font-semibold"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <Package className="h-4 w-4" />
           </div>
@@ -86,13 +95,17 @@ export default function LoginPage() {
                 />
               </div>
               <Button type="submit" className="w-full" disabled={submitting}>
-                {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {submitting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
                 Sign in
               </Button>
             </form>
 
             <div className="mt-6 rounded-md border border-border bg-muted/40 p-3">
-              <p className="text-xs font-medium text-muted-foreground">Demo accounts (click to fill)</p>
+              <p className="text-xs font-medium text-muted-foreground">
+                Demo accounts (click to fill)
+              </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {DEMO_USERS.map((u) => (
                   <button
@@ -102,7 +115,9 @@ export default function LoginPage() {
                     className="rounded-md border border-border bg-background px-2 py-1 text-xs hover:bg-accent"
                   >
                     <span className="font-medium">{u.role}</span>
-                    <span className="ml-1 text-muted-foreground">· {u.username}</span>
+                    <span className="ml-1 text-muted-foreground">
+                      · {u.username}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -110,7 +125,10 @@ export default function LoginPage() {
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
               {"Don't have an account? "}
-              <Link href="/register" className="font-medium text-foreground underline-offset-4 hover:underline">
+              <Link
+                href="/register"
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+              >
                 Create one
               </Link>
             </p>
@@ -118,5 +136,5 @@ export default function LoginPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import ProductCard from "@/components/ProductCard"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { useMemo } from "react"
+import ProductCard from "@/components/ProductCard";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useMemo } from "react";
 
 export default function NewArrivalsSection({
   title = "New arrivals",
@@ -11,14 +11,14 @@ export default function NewArrivalsSection({
 }) {
   const sorted = useMemo(() => {
     return [...products].sort((a, b) => {
-      const aDate = a.created_at ? new Date(a.created_at).getTime() : null
-      const bDate = b.created_at ? new Date(b.created_at).getTime() : null
-      if (aDate && bDate) return bDate - aDate
-      return (b.id || 0) - (a.id || 0)
-    })
-  }, [products])
+      const aDate = a.created_at ? new Date(a.created_at).getTime() : null;
+      const bDate = b.created_at ? new Date(b.created_at).getTime() : null;
+      if (aDate && bDate) return bDate - aDate;
+      return (b.id || 0) - (a.id || 0);
+    });
+  }, [products]);
 
-  const items = sorted.slice(0, limit)
+  const items = sorted.slice(0, limit);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -40,5 +40,5 @@ export default function NewArrivalsSection({
         ))}
       </div>
     </section>
-  )
+  );
 }

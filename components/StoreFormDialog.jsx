@@ -1,11 +1,7 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { toast } from "sonner"
-import { Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -13,22 +9,37 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Checkbox } from "@/components/ui/checkbox"
-import { apiFetch } from "@/lib/fetchClient"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { apiFetch } from "@/lib/fetchClient";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-export default function StoreFormDialog({ open, onOpenChange, store, onSaved, mode = "create" }) {
-  const editing = mode === "edit" && !!store
-  const [form, setForm] = useState({ name: "", address: "", location: "", category_ids: [] })
-  const [categories, setCategories] = useState([])
-  const [submitting, setSubmitting] = useState(false)
+export default function StoreFormDialog({
+  open,
+  onOpenChange,
+  store,
+  onSaved,
+  mode = "create",
+}) {
+  const editing = mode === "edit" && !!store;
+  const [form, setForm] = useState({
+    name: "",
+    address: "",
+    location: "",
+    category_ids: [],
+  });
+  const [categories, setCategories] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
     apiFetch("/stores/storeCategory")
       .then((d) => setCategories(Array.isArray(d) ? d : d?.results || []))
-      .catch(() => setCategories([]))
-  }, [open])
+      .catch(() => setCategories([]));
+  }, [open]);
 
   useEffect(() => {
     if (editing && store) {
@@ -37,11 +48,11 @@ export default function StoreFormDialog({ open, onOpenChange, store, onSaved, mo
         address: store.address || "",
         location: store.location || "",
         category_ids: (store.categories || []).map((c) => c.id),
-      })
+      });
     } else if (open && !editing) {
-      setForm({ name: "", address: "", location: "", category_ids: [] })
+      setForm({ name: "", address: "", location: "", category_ids: [] });
     }
-  }, [store, editing, open])
+  }, [store, editing, open]);
 
   function toggleCategory(id) {
     setForm((f) => ({
@@ -49,26 +60,26 @@ export default function StoreFormDialog({ open, onOpenChange, store, onSaved, mo
       category_ids: f.category_ids.includes(id)
         ? f.category_ids.filter((x) => x !== id)
         : [...f.category_ids, id],
-    }))
+    }));
   }
 
   async function submit(e) {
-    e.preventDefault()
-    setSubmitting(true)
+    e.preventDefault();
+    setSubmitting(true);
     try {
       if (editing) {
-        await apiFetch(`/stores/${store.id}/`, { method: "PUT", body: form })
-        toast.success("Store updated")
+        await apiFetch(`/stores/${store.id}/`, { method: "PUT", body: form });
+        toast.success("Store updated");
       } else {
-        await apiFetch("/stores/", { method: "POST", body: form })
-        toast.success("Store created")
+        await apiFetch("/stores/", { method: "POST", body: form });
+        toast.success("Store created");
       }
-      onSaved && onSaved()
-      onOpenChange(false)
+      onSaved && onSaved();
+      onOpenChange(false);
     } catch (err) {
-      toast.error(err.message || "Failed to save store")
+      toast.error(err.message || "Failed to save store");
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }
 
@@ -76,15 +87,24 @@ export default function StoreFormDialog({ open, onOpenChange, store, onSaved, mo
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{editing ? "Edit store" : "Create new store"}</DialogTitle>
+          <DialogTitle>
+            {editing ? "Edit store" : "Create new store"}
+          </DialogTitle>
           <DialogDescription>
-            {editing ? "Update store details." : "Open a new store on ShopZone."}
+            {editing
+              ? "Update store details."
+              : "Open a new store on ShopZone."}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="s_name">Store name</Label>
-            <Input id="s_name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+            <Input
+              id="s_name"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              required
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="s_addr">Address</Label>
@@ -108,7 +128,9 @@ export default function StoreFormDialog({ open, onOpenChange, store, onSaved, mo
             <Label>Categories</Label>
             <div className="flex max-h-40 flex-wrap gap-2 overflow-y-auto rounded-md border border-border p-3">
               {categories.length === 0 && (
-                <span className="text-xs text-muted-foreground">No categories available</span>
+                <span className="text-xs text-muted-foreground">
+                  No categories available
+                </span>
               )}
               {categories.map((c) => (
                 <label
@@ -125,16 +147,22 @@ export default function StoreFormDialog({ open, onOpenChange, store, onSaved, mo
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={submitting}>
-              {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              {submitting ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               {editing ? "Save changes" : "Create store"}
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

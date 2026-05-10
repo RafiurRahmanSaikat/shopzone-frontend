@@ -85,7 +85,7 @@ export default function CarouselSection({ products = [] }) {
         <div className="absolute -bottom-24 -right-12 h-72 w-72 rounded-full bg-gradient-to-br from-sky-400/30 via-indigo-400/25 to-transparent blur-3xl" />
 
         <div className="relative grid gap-8 px-6 py-10 md:grid-cols-[1.15fr_0.85fr] md:px-10 md:py-12">
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center ml-6">
             <span
               className={`inline-flex w-fit items-center rounded-full bg-gradient-to-r ${current.gradient} px-3 py-1 text-xs font-semibold text-black shadow-sm`}
             >

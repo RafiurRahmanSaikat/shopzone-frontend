@@ -1,18 +1,30 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { toast } from "sonner"
-import { Loader2, Package } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useAuth } from "@/context/AuthContext"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useAuth } from "@/context/AuthContext";
+import { Loader2, Package } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
-  const { register } = useAuth()
+  const { register } = useAuth();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -20,36 +32,39 @@ export default function RegisterPage() {
     phone_number: "",
     address: "",
     role: "customer",
-  })
-  const [submitting, setSubmitting] = useState(false)
+  });
+  const [submitting, setSubmitting] = useState(false);
 
   function update(field, val) {
-    setForm((f) => ({ ...f, [field]: val }))
+    setForm((f) => ({ ...f, [field]: val }));
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-    setSubmitting(true)
+    e.preventDefault();
+    setSubmitting(true);
     try {
-      await register({ ...form, profile_picture: null })
-      toast.success("Account created. Welcome to ShopZone!")
+      await register({ ...form, profile_picture: null });
+      toast.success("Account created. Welcome to ShopZone!");
     } catch (err) {
       const msg =
         (err?.data && typeof err.data === "object"
           ? Object.values(err.data).flat().join(" ")
           : null) ||
         err.message ||
-        "Registration failed"
-      toast.error(msg)
+        "Registration failed";
+      toast.error(msg);
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 py-10">
       <div className="w-full max-w-md">
-        <Link href="/" className="mb-6 flex items-center justify-center gap-2 font-semibold">
+        <Link
+          href="/"
+          className="mb-6 flex items-center justify-center gap-2 font-semibold"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <Package className="h-4 w-4" />
           </div>
@@ -103,13 +118,17 @@ export default function RegisterPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="role">Role</Label>
-                  <Select value={form.role} onValueChange={(v) => update("role", v)}>
+                  <Select
+                    value={form.role}
+                    onValueChange={(v) => update("role", v)}
+                  >
                     <SelectTrigger id="role">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="customer">Customer</SelectItem>
                       <SelectItem value="store_owner">Store Owner</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -123,13 +142,18 @@ export default function RegisterPage() {
                 />
               </div>
               <Button type="submit" className="w-full" disabled={submitting}>
-                {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {submitting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
                 Create account
               </Button>
             </form>
             <p className="mt-6 text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link href="/login" className="font-medium text-foreground underline-offset-4 hover:underline">
+              <Link
+                href="/login"
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+              >
                 Sign in
               </Link>
             </p>
@@ -137,5 +161,5 @@ export default function RegisterPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
