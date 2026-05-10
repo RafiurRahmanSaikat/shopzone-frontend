@@ -28,7 +28,7 @@ export default function HomePage() {
   const products = Array.isArray(productsData)
     ? productsData
     : productsData?.results || [];
-
+  console.log(productsData);
   return (
     <PageShell search={search} setSearch={setSearch}>
       {/* Hero */}
